@@ -1,0 +1,104 @@
+{
+  "_comment": "Manual Client Signoff Configuration - Fallback when Slack API is unavailable",
+  "_instructions": "Update this file with signoff status from Slack #release-pdv-signoff channel",
+  "_last_updated": "2026-02-03",
+  "releases": {
+    "R135": {
+      "stg_deploy": {
+        "date": "2026-01-20",
+        "client_status": [
+          {
+            "service_group": "MPServices",
+            "owner": "@Snehal",
+            "status": "TODO",
+            "tenants": ["DEVINT"],
+            "is_passed": true
+          },
+          {
+            "service_group": "MPServices_Compliance",
+            "owner": "@Snehal",
+            "status": "TODO",
+            "tenants": ["DEVINT"],
+            "is_passed": true
+          }
+        ]
+      },
+      "pre_prd_deploy": {
+        "date": "2026-01-22",
+        "client_status": []
+      },
+      "day1_deploy": {
+        "date": "2026-01-28",
+        "client_status": []
+      },
+      "day2_deploy": {
+        "date": "2026-01-29",
+        "client_status": []
+      },
+      "day3_deploy": {
+        "date": "2026-01-30",
+        "client_status": []
+      },
+      "day4_deploy": {
+        "date": "2026-02-02",
+        "client_status": []
+      }
+    },
+    "R134": {
+      "stg_deploy": {
+        "date": "2026-01-06",
+        "client_status": [
+          {
+            "service_group": "MPServices",
+            "owner": "@Snehal",
+            "status": "TODO",
+            "tenants": ["DEVINT"],
+            "is_passed": true
+          },
+          {
+            "service_group": "MPServices_Compliance",
+            "owner": "@Snehal",
+            "status": "FAILURE",
+            "tenants": ["fed02-mp-preprod"],
+            "is_passed": false
+          }
+        ]
+      },
+      "pre_prd_deploy": {
+        "date": "2026-01-08",
+        "client_status": []
+      },
+      "day1_deploy": {
+        "date": "2026-01-14",
+        "client_status": [
+          {
+            "service_group": "MPServices",
+            "owner": "@Snehal",
+            "status": "TODO",
+            "tenants": ["DEVINT"],
+            "is_passed": true
+          },
+          {
+            "service_group": "MPServices_Compliance",
+            "owner": "@Snehal",
+            "status": "FAILURE",
+            "tenants": ["fed02-mp-preprod"],
+            "is_passed": false
+          }
+        ]
+      },
+      "day2_deploy": {
+        "date": "2026-01-15",
+        "client_status": []
+      },
+      "day3_deploy": {
+        "date": "2026-01-16",
+        "client_status": []
+      },
+      "day4_deploy": {
+        "date": "2026-01-19",
+        "client_status": []
+      }
+    }
+  }
+}

@@ -1,0 +1,166 @@
+# Docker Compose Configuration
+# ----------------------------------------------------------------------------
+# Base file: portable bridge networking with explicit port mappings.
+# Works on Mac, Linux and Windows out of the box.
+#
+# On Linux, the Makefile automatically layers `docker-compose.linux.yml` on top,
+# which switches to `network_mode: host` for slightly lower latency.
+# Force portable mode on Linux with: COMPOSE_MODE=portable make up
+# ----------------------------------------------------------------------------
+
+services:
+  # Backend - Python/FastAPI
+  backend:
+    build:
+      context: ..
+      dockerfile: backend/Dockerfile
+    image: qe-dashboard-backend:latest
+    container_name: qe-dashboard-backend
+    env_file:
+      - ../.env
+    ports:
+      - "8000:8000"
+    environment:
+      - CORS_ORIGINS=${CORS_ORIGINS:-*}
+      - CURRENT_RELEASE=${CURRENT_RELEASE:-R135}
+      - APP_ENV=${APP_ENV:-production}
+      - DEBUG=${DEBUG:-false}
+      - TESTRAIL_URL=${TESTRAIL_URL}
+      - TESTRAIL_USERNAME=${TESTRAIL_USERNAME}
+      - TESTRAIL_API_KEY=${TESTRAIL_API_KEY}
+      - TESTRAIL_PROJECT_ID=${TESTRAIL_PROJECT_ID:-38}
+      - TESTRAIL_MILESTONE_ID=${TESTRAIL_MILESTONE_ID:-5276}
+      - JIRA_URL=${JIRA_URL}
+      - JIRA_USERNAME=${JIRA_USERNAME}
+      - RANCHER_NPE_KEY=${RANCHER_NPE_KEY}
+      - RANCHER_PROD_KEY=${RANCHER_PROD_KEY}
+      - JIRA_API_TOKEN=${JIRA_API_TOKEN}
+      - JIRA_PROJECT_KEY=${JIRA_PROJECT_KEY:-YOUR_PRODUCT}
+      - JIRA_FIX_VERSION=${JIRA_FIX_VERSION}
+      - JENKINS_URL=${JENKINS_URL}
+      - JENKINS_USER=${JENKINS_USER}
+      - JENKINS_TOKEN=${JENKINS_TOKEN}
+      - JENKINS_VIEW=${JENKINS_VIEW}
+      - JENKINS_JOBS=${JENKINS_JOBS}
+      - JENKINS_GOLDEN_REGRESSION_URL=${JENKINS_GOLDEN_REGRESSION_URL}
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - GOOGLE_SERVICE_ACCOUNT_FILE=/app/credentials/service-account.json
+      - SLACK_BOT_TOKEN=${SLACK_BOT_TOKEN}
+      - SLACK_CHANNEL=${SLACK_CHANNEL}
+      - SLACK_NOTIFICATIONS_ENABLED=${SLACK_NOTIFICATIONS_ENABLED:-true}
+      - SLACK_SCHEDULE_ENABLED=${SLACK_SCHEDULE_ENABLED:-true}
+      - SLACK_SCHEDULE_HOUR=${SLACK_SCHEDULE_HOUR:-9}
+      - SLACK_SCHEDULE_MINUTE=${SLACK_SCHEDULE_MINUTE:-0}
+      - SLACK_STACK_ALERTS_ENABLED=${SLACK_STACK_ALERTS_ENABLED:-false}
+      # LLM / AI
+      - LLM_BASE_URL=${LLM_BASE_URL}
+      - LLM_API_KEY=${LLM_API_KEY}
+      - LLM_API_TOKEN=${LLM_API_TOKEN}
+      - LLM_MODEL=${LLM_MODEL}
+      - LLM_COMMIT_MODEL=${LLM_COMMIT_MODEL}
+      - EMBEDDING_MODEL=${EMBEDDING_MODEL:-qwen3-embedding}
+      - EMBEDDING_BASE_URL=${EMBEDDING_BASE_URL}
+      - EMBEDDING_API_KEY=${EMBEDDING_API_KEY}
+      - OLLAMA_URL=${OLLAMA_URL:-http://localhost:11434}
+      - ORCHESTRATOR_MODEL=${ORCHESTRATOR_MODEL:-llama3.2}
+      - OLLAMA_BASE_URL=${OLLAMA_BASE_URL}
+      - ADK_LLM_PROVIDER=${ADK_LLM_PROVIDER:-ollama}
+      - ADK_LLM_MODEL=${ADK_LLM_MODEL:-sgl/llama-3.2-11B-vision-instruct}
+      - OLLAMA_API_KEY=${OLLAMA_API_KEY}
+      - JENKINS_GR_USER=${JENKINS_GR_USER}
+      - JENKINS_BACKEND_PDV_URL=${JENKINS_BACKEND_PDV_URL}
+      - JENKINS_BACKEND_PDV_USER=${JENKINS_BACKEND_PDV_USER}
+      - JENKINS_BACKEND_PDV_TOKEN=${JENKINS_BACKEND_PDV_TOKEN}
+      - JENKINS_PDV_JOBS=${JENKINS_PDV_JOBS}
+      - JENKINS_DEV_PIPELINES=${JENKINS_DEV_PIPELINES}
+      - JENKINS_MONITOR_ENABLED=${JENKINS_MONITOR_ENABLED:-true}
+      - JENKINS_MONITOR_THRESHOLD_MINUTES=${JENKINS_MONITOR_THRESHOLD_MINUTES:-60}
+      - JENKINS_MONITOR_CHECK_INTERVAL_MINUTES=${JENKINS_MONITOR_CHECK_INTERVAL_MINUTES:-5}
+      - JENKINS_GR_TOKEN=${JENKINS_GR_TOKEN}
+      - EXCLUDED_STACKS=${EXCLUDED_STACKS:-}
+      # OpsGenie Configuration (On-Call Calendar)
+      - OPSGENIE_API_KEY=${OPSGENIE_API_KEY}
+      - OPSGENIE_BACKEND_API_KEY=${OPSGENIE_BACKEND_API_KEY}
+      # PDV Configuration
+      - PDV_SCHEDULER_ENABLED=${PDV_SCHEDULER_ENABLED:-true}
+      - PDV_CHECK_INTERVAL_MINUTES=${PDV_CHECK_INTERVAL_MINUTES:-5}
+      - PDV_RELEASES=${PDV_RELEASES:-R136}
+      - PDV_SLACK_CHANNEL=${PDV_SLACK_CHANNEL:-YOUR_SLACK_CHANNEL_ID}
+    volumes:
+      - ../backend/data:/app/data
+      - ${HOME}/secrets/service-account.json:/app/credentials/service-account.json:ro
+      # Mount PDV service token if applicable (optional)
+      - ${HOME}/.config/your-pdv-service:/root/.config/your-pdv-service:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Frontend - React/Nginx
+  frontend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: qe-dashboard-frontend:latest
+    container_name: qe-dashboard-frontend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "-s", "http://localhost:8080"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # Streamlit - AI Agents Interface
+  streamlit:
+    build:
+      context: ..
+      dockerfile: ai_agents/Dockerfile
+    image: qe-dashboard-streamlit:latest
+    container_name: qe-dashboard-streamlit
+    env_file:
+      - ../.env
+    ports:
+      - "8501:8501"
+    environment:
+      - STREAMLIT_SERVER_BASE_URL_PATH=/streamlit
+      - CURRENT_RELEASE=${CURRENT_RELEASE:-R135}
+      - ADK_LLM_PROVIDER=${ADK_LLM_PROVIDER:-ollama}
+      - ADK_LLM_MODEL=${ADK_LLM_MODEL:-sgl/llama-3.2-11B-vision-instruct}
+      - ADK_OLLAMA_BASE_URL=${ADK_OLLAMA_BASE_URL:-http://localhost:11434}
+      - ADK_OPENAI_API_KEY=${ADK_OPENAI_API_KEY:-}
+      - ADK_GOOGLE_API_KEY=${ADK_GOOGLE_API_KEY:-}
+      - ADK_ANTHROPIC_API_KEY=${ADK_ANTHROPIC_API_KEY:-}
+      - BACKEND_URL=http://backend:8000
+      - TESTRAIL_URL=${TESTRAIL_URL}
+      - TESTRAIL_USERNAME=${TESTRAIL_USERNAME}
+      - TESTRAIL_API_KEY=${TESTRAIL_API_KEY}
+      - OLLAMA_BASE_URL=${OLLAMA_BASE_URL}
+      - OLLAMA_API_KEY=${OLLAMA_API_KEY}
+      - ADK_ENABLE_STREAMING=${ADK_ENABLE_STREAMING:-true}
+      - ADK_USE_SEMANTIC_ROUTING=${ADK_USE_SEMANTIC_ROUTING:-false}
+      - ADK_USE_SIMPLIFIED_INSTRUCTIONS=${ADK_USE_SIMPLIFIED_INSTRUCTIONS:-true}
+      - ADK_ENFORCE_ENGLISH=${ADK_ENFORCE_ENGLISH:-true}
+      - JIRA_URL=${JIRA_URL}
+      - JIRA_USERNAME=${JIRA_USERNAME}
+      - JIRA_API_TOKEN=${JIRA_API_TOKEN}
+      - JENKINS_URL=${JENKINS_URL}
+      - JENKINS_USER=${JENKINS_USER}
+      - JENKINS_TOKEN=${JENKINS_TOKEN}
+      - MONGODB_URI=${MONGODB_URI:-}
+    depends_on:
+      - backend
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8501/_stcore/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
