@@ -1,0 +1,209 @@
+# Agentic Insights Portal - Unified Environment Configuration
+# ================================================
+# Copy this file to .env in the project root and fill in your values.
+# Both backend and ai_agents read from this single .env file.
+
+# =============================================================================
+# RELEASE CONFIGURATION
+# =============================================================================
+# Current release - change this when switching to a new release
+# This is the single source of truth for the default release
+CURRENT_RELEASE=R134
+
+# =============================================================================
+# APPLICATION
+# =============================================================================
+APP_ENV=development
+DEBUG=true
+SECRET_KEY=change-this-in-production
+
+# =============================================================================
+# AI AGENTS / LLM CONFIGURATION
+# =============================================================================
+# LLM Provider: ollama, openai, gemini, anthropic
+ADK_LLM_PROVIDER=ollama
+
+# LLM Model (REQUIRED - no default)
+# Ollama: gemma2:9b, llama3.2, qwen2.5:14b
+# OpenAI: gpt-4o, gpt-4o-mini
+ADK_LLM_MODEL=gemma2:9b
+
+# Ollama server URL (for local LLM)
+ADK_OLLAMA_BASE_URL=http://localhost:11434
+
+# Enable streaming responses
+ADK_ENABLE_STREAMING=true
+
+# Routing Configuration
+ADK_USE_SEMANTIC_ROUTING=true
+ADK_USE_SIMPLIFIED_INSTRUCTIONS=true
+ADK_ROUTING_CONFIDENCE_THRESHOLD=0.7
+ADK_ROUTING_TEMPERATURE=0.1
+ADK_MAX_ROUTING_RETRIES=2
+
+# Cloud LLM API Keys (optional - only if using cloud providers)
+# ADK_OPENAI_API_KEY=
+# ADK_GOOGLE_API_KEY=
+# ADK_ANTHROPIC_API_KEY=
+
+# MongoDB (optional - for session persistence)
+# MONGODB_URI=mongodb://localhost:27017
+DISABLE_MONGODB=true
+
+# =============================================================================
+# TESTRAIL
+# =============================================================================
+TESTRAIL_URL=https://your-instance.testrail.io
+TESTRAIL_USERNAME=
+TESTRAIL_API_KEY=
+TESTRAIL_PROJECT_ID=38
+#
+
+# =============================================================================
+# JIRA
+# =============================================================================
+JIRA_URL=https://your-company.atlassian.net
+JIRA_USERNAME=
+JIRA_API_TOKEN=
+JIRA_PROJECT_KEY=YOUR_PRODUCT
+JIRA_FIX_VERSION=R 134.0.0.0
+JIRA_CUSTOMER_BUGS_PROJECT=ENG
+
+# =============================================================================
+# GOOGLE SERVICES
+# =============================================================================
+# Service account JSON for Sheets API
+GOOGLE_SERVICE_ACCOUNT_FILE=
+
+# Calendar Sync (for Release Calendar)
+# Calendar ID: Found in Google Calendar Settings > Integrate Calendar
+# Example: abc123@group.calendar.google.com or primary
+GOOGLE_CALENDAR_ID=
+
+# API Key: For public calendars (simpler setup)
+# Create at: https://console.cloud.google.com/apis/credentials
+# Enable "Google Calendar API" first
+GOOGLE_CALENDAR_API_KEY=
+
+# Sync interval in minutes (default: 30)
+# The release calendar will auto-sync from Google Calendar at this interval
+GOOGLE_CALENDAR_SYNC_INTERVAL=30
+
+# Legacy: iCal URL (not currently used, API preferred)
+GOOGLE_CALENDAR_ICAL_URL=
+
+# =============================================================================
+# JENKINS
+# =============================================================================
+JENKINS_URL=http://jenkins03-int.stg01-mp.nc4.iad0.nsscloud.net:8080
+JENKINS_USER=
+JENKINS_TOKEN=
+JENKINS_VIEW=Your-Product
+JENKINS_JOBS=downloader_test,addonman_regression,clientstatus_regression
+# Golden Regression Suite URL - use full path including folders (URL-encode spaces with %20)
+# Example: http://jenkins.../job/Your-Product/job/Windows/job/Pipelines/job/Golden%20Regression%20Suite
+JENKINS_GOLDEN_REGRESSION_URL=
+
+# =============================================================================
+# BACKEND PDV JENKINS (Backend PDV pipelines migrated to separate server)
+# =============================================================================
+# Backend PDV Jenkins server URL (jobs are under /job/BACKEND/)
+JENKINS_BACKEND_PDV_URL=http://10.136.208.148:8080/job/BACKEND
+# Backend PDV Jenkins credentials (optional - falls back to JENKINS_GR_USER/TOKEN, then JENKINS_USER/TOKEN)
+JENKINS_BACKEND_PDV_USER=
+JENKINS_BACKEND_PDV_TOKEN=
+# PDV jobs to monitor (comma-separated list of job names)
+# If not set, defaults to: your-product-backend-pdv-test, your-product-provisioner-pdv
+JENKINS_PDV_JOBS=
+
+# =============================================================================
+# DEV JENKINS (iad0-cisystem.example.com)
+# =============================================================================
+# Dev Jenkins server URL (supports anonymous read access)
+JENKINS_DEV_URL=https://iad0-cisystem.example.com
+# Dev Jenkins credentials (optional - anonymous access works for read operations)
+JENKINS_DEV_USER=
+JENKINS_DEV_TOKEN=
+# Dev pipelines to monitor (comma-separated)
+# Format: job-name:Display Name:Description (display name and description optional)
+# Example: client-feature-pipeline:Feature Pipeline:Feature branch builds,client-develop-pipeline:Develop Pipeline
+# If not set, defaults to: client-feature-pipeline, client-develop-pipeline, client-release-pipeline
+JENKINS_DEV_PIPELINES=client-feature-pipeline:Feature Pipeline:Feature branch builds,client-develop-pipeline:Develop Pipeline:Develop branch builds,client-release-pipeline:Release Pipeline:Release branch builds
+
+# =============================================================================
+# GITHUB
+# =============================================================================
+GITHUB_TOKEN=
+
+# =============================================================================
+# KUBERNETES CONFIGURATION
+# =============================================================================
+# Path to kubeconfig directory (mounted into Docker container)
+# Default: ~/.kube (your home .kube directory)
+# Can also point to a project-local directory: ./kubeconfigs
+KUBECONFIG_PATH=~/.kube
+
+# Kubeconfig file path inside container (set automatically based on mount)
+# Default: /app/.kube/config
+# KUBECONFIG=/app/.kube/config
+
+# -----------------------------------------------------------------------------
+# RANCHER INTEGRATION (Automatic Kubeconfig Download)
+# -----------------------------------------------------------------------------
+# Downloads kubeconfig files from Rancher automatically.
+# Based on your-product-qe/tools/cluster_downloader.py
+#
+# Two Rancher Servers:
+#   NPE/Staging: your-rancher.example.com (qa01, stg01, etc.)
+#   Production:  rancher.example.com (sjc1, fra2, etc.)
+#
+# Option 1: Environment Variables (set these tokens)
+RANCHER_NPE_KEY=
+RANCHER_PROD_KEY=
+#
+# Option 2: Vault (automatic if pylclient is available)
+#   Path: /your-product-tw/stack/rancher_secret
+#   Keys: rancher_npe_key, rancher_prod_key
+#
+# Kubeconfig save directory (default: ~/.kube/rancher)
+# RANCHER_KUBECONFIG_DIR=~/.kube/rancher
+#
+# API Endpoints:
+# - GET /api/rancher/status - Check token configuration
+# - GET /api/rancher/clusters - List available clusters
+# - POST /api/rancher/kubeconfig/download/{cluster_name} - Download one
+# - POST /api/rancher/kubeconfig/download-all - Download all
+
+# -----------------------------------------------------------------------------
+# YOUR_PRODUCT_QE ENVIRONMENT CONFIGURATION (JSON-based Stack Discovery)
+# -----------------------------------------------------------------------------
+# Environment configs are fetched from GitHub (single source of truth):
+#   Repository: your-company-qe/your-product-qe
+#   Path: your-product-qe/environment/*.json and your-product-qe/environment/pe/*.json
+#
+# GITHUB_TOKEN is required for private repo access (set above in GitHub section)
+# Configs are cached for 24 hours to avoid repeated API calls.
+#
+# API Endpoints:
+# - GET /api/rancher/environments - List all environments from JSON configs
+# - GET /api/rancher/environments?refresh=true - Force refresh from GitHub
+
+# -----------------------------------------------------------------------------
+# STACK MONITORING - KUBECONFIG FILES
+# -----------------------------------------------------------------------------
+# Kubeconfigs are automatically:
+#   1. Discovered from GitHub JSON configs (kubeconfig_filename field)
+#   2. Downloaded from Rancher to ~/.kube/rancher/ (if RANCHER tokens are set)
+#   3. Matched by filename (e.g., stork-qa01-mp-npe-iad0-nc1.yaml)
+#
+# No manual configuration needed! The system auto-discovers everything.
+#
+# Verify configured stacks: GET /api/rancher/stacks
+# Download kubeconfigs: POST /api/rancher/kubeconfig/download-all
+
+# =============================================================================
+# SLACK NOTIFICATIONS
+# =============================================================================
+SLACK_BOT_TOKEN=
+SLACK_CHANNEL=
+SLACK_NOTIFICATIONS_ENABLED=true

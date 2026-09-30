@@ -1,0 +1,89 @@
+/* Import all style modules */
+@import './styles/variables.css';
+@import './styles/badges.css';
+@import './styles/layout.css';
+@import './styles/sections.css';
+@import './styles/overview.css';
+@import './styles/components.css';
+@import './styles/chat.css';
+@import './styles/extra-sections.css';
+
+/* Import Google Fonts - Premium Typography */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+/* ============================================================
+   Section Skeleton - Loading placeholder for lazy-loaded sections
+   ============================================================ */
+@keyframes skeleton-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.section-skeleton {
+  padding: 24px;
+  animation: fadeIn 0.2s ease;
+}
+
+.skeleton-line {
+  border-radius: 6px;
+  background: linear-gradient(90deg, var(--bg-tertiary) 25%, var(--border-color) 50%, var(--bg-tertiary) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+}
+
+.skeleton-header {
+  margin-bottom: 24px;
+}
+
+.skeleton-title {
+  height: 28px;
+  width: 240px;
+  margin-bottom: 10px;
+}
+
+.skeleton-subtitle {
+  height: 16px;
+  width: 320px;
+}
+
+.skeleton-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.skeleton-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.skeleton-card-value {
+  height: 32px;
+  width: 60px;
+  margin-bottom: 8px;
+}
+
+.skeleton-card-label {
+  height: 14px;
+  width: 80px;
+}
+
+.skeleton-content {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.skeleton-row {
+  height: 16px;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.skeleton-row.short {
+  width: 60%;
+}

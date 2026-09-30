@@ -1,0 +1,930 @@
+/* =============================================================================
+   Feature Insights Section
+   ============================================================================= */
+
+.fi-dashboard {
+  --bg-page: #f8f7f4;
+  --bg-card: #ffffff;
+  --bg-hover: #faf9f7;
+  --border: #e8e5e0;
+  --text-primary: #2d2a26;
+  --text-secondary: #6b6560;
+  --text-muted: #8a8680;
+  --accent: #d4552a;
+  --blue: #3b82f6;
+  --purple: #8b5cf6;
+  --amber: #f59e0b;
+  --green: #10b981;
+  --red: #ef4444;
+  --gray: #6b7280;
+
+  padding: 24px;
+  background: var(--bg-page);
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Header */
+.fi-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.fi-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.fi-header-icon {
+  color: var(--accent);
+}
+
+.fi-header-left h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.fi-total-badge {
+  background: var(--accent);
+  color: #fff;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.fi-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.fi-refresh-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 7px 10px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+}
+
+.fi-refresh-btn:hover {
+  background: var(--bg-hover);
+}
+
+.fi-spin {
+  animation: fi-rotate 1s linear infinite;
+}
+
+@keyframes fi-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.fi-jira-link {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 14px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.fi-jira-link:hover {
+  opacity: 0.9;
+}
+
+/* Loading / Error */
+.fi-loading,
+.fi-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 80px 20px;
+  color: var(--text-secondary);
+  font-size: 15px;
+}
+
+.fi-spinner {
+  animation: fi-rotate 1s linear infinite;
+}
+
+.fi-error {
+  color: var(--red);
+}
+
+.fi-error button {
+  margin-left: 10px;
+  padding: 6px 16px;
+  border: 1px solid var(--red);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--red);
+  cursor: pointer;
+  font-size: 13px;
+}
+
+/* Overview: Cards + Sunburst */
+.fi-overview {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 28px;
+  align-items: flex-start;
+}
+
+.fi-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  flex: 1;
+}
+
+.fi-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--gray);
+  border-radius: 10px;
+  padding: 16px 20px;
+  min-width: 120px;
+  flex: 1;
+  text-align: center;
+  cursor: pointer;
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+
+.fi-card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px);
+}
+
+.fi-card.active {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.fi-card-icon {
+  font-size: 20px;
+  margin-bottom: 4px;
+}
+
+.fi-card-count {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.1;
+}
+
+.fi-card-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.fi-card-blocked {
+  background: #fef2f2;
+}
+
+.fi-card-blocked .fi-card-count {
+  color: var(--red);
+}
+
+/* Chart */
+.fi-chart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  min-width: 420px;
+}
+
+.fi-sunburst-wrapper {
+  position: relative;
+}
+
+.fi-tooltip {
+  position: absolute;
+  background: rgba(45, 42, 38, 0.92);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+.fi-chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+  justify-content: center;
+}
+
+.fi-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.fi-legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Status Phase Groups */
+.fi-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fi-group {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.fi-group-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 18px;
+  cursor: pointer;
+  border-left: 4px solid var(--gray);
+  transition: background 0.1s;
+  user-select: none;
+}
+
+.fi-group-header:hover {
+  background: var(--bg-hover);
+}
+
+.fi-group-chevron {
+  color: var(--text-muted);
+  display: flex;
+}
+
+.fi-group-icon {
+  font-size: 16px;
+}
+
+.fi-group-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.fi-group-count {
+  background: #f0efec;
+  color: var(--text-secondary);
+  padding: 2px 10px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-left: 4px;
+}
+
+/* NPLAN Table */
+.fi-nplan-list {
+  padding: 0 18px 14px;
+}
+
+.fi-nplan-table-header {
+  display: grid;
+  grid-template-columns: 28px 24px 110px 1fr 120px 60px 70px 100px;
+  padding: 8px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  border-bottom: 1px solid var(--border);
+}
+
+.fi-nplan-row {
+  display: grid;
+  grid-template-columns: 28px 24px 110px 1fr 120px 60px 70px 100px;
+  padding: 10px 10px;
+  align-items: center;
+  cursor: pointer;
+  border-bottom: 1px solid #f0efec;
+  transition: background 0.1s;
+  font-size: 13px;
+}
+
+.fi-nplan-row:hover {
+  background: var(--bg-hover);
+}
+
+.fi-col-expand {
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+}
+
+.fi-col-key a {
+  color: var(--blue);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.fi-col-key a:hover {
+  text-decoration: underline;
+}
+
+.fi-col-summary {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 12px;
+  color: var(--text-primary);
+}
+
+.fi-col-assignee {
+  color: var(--text-secondary);
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fi-col-eng,
+.fi-col-noneng,
+.fi-col-related {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.fi-eng-count {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.fi-col-blocked {
+  text-align: center;
+}
+
+.fi-blocked-badge {
+  background: #fef2f2;
+  color: var(--red);
+  padding: 2px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.fi-ok-badge {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+/* Expanded NPLAN Detail */
+.fi-nplan-detail {
+  margin: 0 10px 10px 38px;
+  background: #faf9f7;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Tabs */
+.fi-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  background: #f5f4f1;
+}
+
+.fi-tab {
+  padding: 9px 18px;
+  border: none;
+  background: none;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s;
+}
+
+.fi-tab:hover {
+  color: var(--text-primary);
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.fi-tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+  font-weight: 600;
+}
+
+.fi-ticket-panel {
+  padding: 12px;
+}
+
+.fi-empty {
+  text-align: center;
+  padding: 24px;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.fi-empty-group {
+  padding: 16px 18px;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-style: italic;
+}
+
+/* Mini summary bar */
+.fi-mini-summary {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.fi-mini-done {
+  color: var(--green);
+}
+
+.fi-mini-ip {
+  color: var(--blue);
+}
+
+.fi-mini-todo {
+  color: var(--text-muted);
+}
+
+.fi-mini-blocked {
+  color: var(--red);
+  font-weight: 700;
+}
+
+/* Ticket Tables */
+.fi-ticket-table {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.fi-ticket-header {
+  display: grid;
+  grid-template-columns: 100px 1fr 120px 80px 120px;
+  padding: 8px 10px;
+  background: #f0efec;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.fi-ticket-header.non-eng {
+  grid-template-columns: 100px 1fr 120px 80px 120px;
+}
+
+.fi-ticket-header.related {
+  grid-template-columns: 120px 1fr 120px 140px;
+}
+
+.fi-ticket-row {
+  display: grid;
+  grid-template-columns: 100px 1fr 120px 80px 120px;
+  padding: 8px 10px;
+  font-size: 13px;
+  border-top: 1px solid #f0efec;
+  align-items: center;
+}
+
+.fi-ticket-header.non-eng + .fi-ticket-row,
+.fi-ticket-header.non-eng ~ .fi-ticket-row {
+  grid-template-columns: 100px 1fr 120px 80px 120px;
+}
+
+.fi-ticket-header.related + .fi-ticket-row,
+.fi-ticket-header.related ~ .fi-ticket-row {
+  grid-template-columns: 120px 1fr 120px 140px;
+}
+
+.fi-ticket-row.blocked {
+  background: #fef2f2;
+}
+
+.fi-ticket-row:hover {
+  background: var(--bg-hover);
+}
+
+.fi-ticket-row.blocked:hover {
+  background: #fde8e8;
+}
+
+.fi-tcol-key a {
+  color: var(--blue);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.fi-tcol-key a:hover {
+  text-decoration: underline;
+}
+
+.fi-tcol-summary {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 10px;
+  color: var(--text-primary);
+}
+
+.fi-tcol-status {
+  font-size: 12px;
+}
+
+.fi-tcol-priority {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.fi-tcol-assignee {
+  font-size: 12px;
+  color: var(--text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fi-tcol-project {
+  font-size: 12px;
+}
+
+.fi-tcol-link {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* Status badges */
+.fi-status-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.fi-status-badge.blocked {
+  background: #fef2f2;
+  color: var(--red);
+}
+
+.fi-status-badge.in_progress {
+  background: #eff6ff;
+  color: var(--blue);
+}
+
+.fi-status-badge.done {
+  background: #ecfdf5;
+  color: var(--green);
+}
+
+.fi-status-badge.todo {
+  background: #f5f4f1;
+  color: var(--text-muted);
+}
+
+.fi-project-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  background: #f0efec;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+/* Signal Indicator (dot in NPLAN row) */
+.fi-col-signal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fi-signal-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.fi-signal-indicator.red { background: #ef4444; box-shadow: 0 0 4px rgba(239, 68, 68, 0.4); }
+.fi-signal-indicator.amber { background: #f59e0b; box-shadow: 0 0 4px rgba(245, 158, 11, 0.4); }
+.fi-signal-indicator.green { background: #10b981; }
+
+.fi-col-target {
+  font-size: 11px;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* View Toggle */
+.fi-view-toggle {
+  display: flex;
+  background: #f0efec;
+  border-radius: 8px;
+  padding: 2px;
+}
+
+.fi-view-btn {
+  padding: 6px 14px;
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.fi-view-btn.active {
+  background: var(--bg-card);
+  color: var(--accent);
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* Health Signal Section */
+.fi-signal-section {
+  margin-bottom: 24px;
+}
+
+.fi-section-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.fi-signal-cards {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.fi-signal-card {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 16px;
+  min-width: 100px;
+}
+
+.fi-signal-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.fi-signal-count {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.fi-signal-label {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.fi-signal-red .fi-signal-count { color: #ef4444; }
+.fi-signal-amber .fi-signal-count { color: #f59e0b; }
+.fi-signal-green .fi-signal-count { color: #10b981; }
+
+.fi-signal-bar-track {
+  display: flex;
+  height: 6px;
+  border-radius: 3px;
+  overflow: hidden;
+  background: #f0efec;
+}
+
+.fi-signal-bar-seg {
+  height: 100%;
+  transition: width 0.3s;
+}
+
+.fi-signal-bar-seg.red { background: #ef4444; }
+.fi-signal-bar-seg.amber { background: #f59e0b; }
+.fi-signal-bar-seg.green { background: #10b981; }
+
+/* Quarter View */
+.fi-quarter-section {
+  margin-top: 8px;
+}
+
+.fi-quarter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.fi-year-selector {
+  display: flex;
+  gap: 6px;
+}
+
+.fi-year-btn {
+  padding: 6px 16px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.fi-year-btn.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.fi-year-btn:hover:not(.active) {
+  background: var(--bg-hover);
+}
+
+.fi-quarter-content {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.fi-quarter-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  flex: 1;
+}
+
+.fi-quarter-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  min-width: 180px;
+  flex: 1;
+  overflow: hidden;
+}
+
+.fi-quarter-card.empty {
+  opacity: 0.5;
+}
+
+.fi-quarter-card-header {
+  padding: 12px 16px;
+  border-top: 3px solid var(--gray);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fi-quarter-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.fi-quarter-count {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.fi-quarter-breakdown {
+  padding: 8px 16px 12px;
+  border-top: 1px solid var(--border);
+}
+
+.fi-qb-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 0;
+  font-size: 12px;
+}
+
+.fi-qb-status {
+  color: var(--text-secondary);
+}
+
+.fi-qb-count {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.fi-quarter-chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  min-width: 420px;
+}
+
+/* =============================================================================
+   Responsive
+   ============================================================================= */
+@media (max-width: 1200px) {
+  .fi-overview {
+    flex-direction: column;
+  }
+
+  .fi-chart-container {
+    min-width: unset;
+    width: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+  .fi-nplan-table-header,
+  .fi-nplan-row {
+    grid-template-columns: 28px 24px 90px 1fr 60px 60px 80px;
+  }
+
+  .fi-quarter-content {
+    flex-direction: column;
+  }
+
+  .fi-quarter-chart {
+    min-width: unset;
+    width: 100%;
+  }
+
+  .fi-ticket-header,
+  .fi-ticket-row {
+    grid-template-columns: 90px 1fr 100px 80px;
+  }
+
+  .fi-tcol-assignee {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .fi-dashboard {
+    padding: 12px;
+  }
+
+  .fi-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .fi-cards {
+    flex-direction: column;
+  }
+
+  .fi-card {
+    min-width: unset;
+  }
+}

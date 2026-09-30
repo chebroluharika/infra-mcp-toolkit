@@ -1,0 +1,255 @@
+/**
+ * Shared Badge & Label Styles
+ * 
+ * Consolidated styles for badges, labels, and status indicators.
+ * Import this file in App.css or index.css for global availability.
+ * 
+ * Usage:
+ * - .badge - Base badge style
+ * - .badge-{variant} - Variants: primary, success, warning, danger, info, muted
+ * - .priority-badge - Priority indicators (critical, high, medium, low)
+ * - .status-badge - Status indicators (success, warning, danger, in-progress, etc.)
+ * - .tag - Small label/tag style
+ * - .link-action - Action links (view all, open in JIRA, etc.)
+ */
+
+/* =============================================================================
+   BASE BADGE
+   ============================================================================= */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Badge Variants */
+.badge-primary {
+  background: rgba(59, 130, 246, 0.15);
+  color: var(--accent-blue);
+}
+
+.badge-success {
+  background: rgba(34, 197, 94, 0.15);
+  color: var(--success);
+}
+
+.badge-warning {
+  background: rgba(249, 115, 22, 0.15);
+  color: var(--warning);
+}
+
+.badge-danger {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--danger);
+}
+
+.badge-info {
+  background: rgba(59, 130, 246, 0.1);
+  color: var(--info, var(--accent-blue));
+}
+
+.badge-muted {
+  background: var(--bg-tertiary);
+  color: var(--text-muted);
+}
+
+/* =============================================================================
+   PRIORITY BADGE
+   ============================================================================= */
+
+.priority-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Priority Levels */
+.priority-badge.blocker,
+.priority-badge.critical {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--danger);
+}
+
+.priority-badge.high {
+  background: rgba(249, 115, 22, 0.15);
+  color: var(--warning);
+}
+
+.priority-badge.medium,
+.priority-badge.normal {
+  background: rgba(59, 130, 246, 0.15);
+  color: var(--accent-blue);
+}
+
+.priority-badge.low,
+.priority-badge.lowest,
+.priority-badge.other {
+  background: var(--bg-tertiary);
+  color: var(--text-muted);
+}
+
+/* =============================================================================
+   STATUS BADGE
+   ============================================================================= */
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Status Variants */
+.status-badge.success,
+.status-badge.passed,
+.status-badge.resolved,
+.status-badge.done,
+.status-badge.completed,
+.status-badge.complete {
+  background: rgba(34, 197, 94, 0.15);
+  color: var(--success);
+}
+
+.status-badge.warning,
+.status-badge.in-progress,
+.status-badge.in_progress,
+.status-badge.needs-work {
+  background: rgba(249, 115, 22, 0.15);
+  color: var(--warning);
+}
+
+.status-badge.danger,
+.status-badge.failed,
+.status-badge.blocked,
+.status-badge.at-risk,
+.status-badge.at_risk {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--danger);
+}
+
+.status-badge.info,
+.status-badge.open,
+.status-badge.pending {
+  background: rgba(59, 130, 246, 0.15);
+  color: var(--accent-blue);
+}
+
+.status-badge.muted,
+.status-badge.not-run,
+.status-badge.unknown {
+  background: var(--bg-tertiary);
+  color: var(--text-muted);
+}
+
+.status-badge.on-track,
+.status-badge.good {
+  background: rgba(34, 197, 94, 0.1);
+  color: var(--success);
+}
+
+/* =============================================================================
+   TAG / LABEL
+   ============================================================================= */
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 10px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.tag-more {
+  font-size: 10px;
+  color: var(--text-muted);
+  padding: 2px 4px;
+}
+
+/* Tag container */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+/* =============================================================================
+   ACTION LINKS
+   ============================================================================= */
+
+.link-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--accent-blue);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  background: rgba(59, 130, 246, 0.1);
+  transition: all 0.2s ease;
+}
+
+.link-action:hover {
+  background: rgba(59, 130, 246, 0.2);
+  text-decoration: none;
+}
+
+.link-action svg {
+  flex-shrink: 0;
+}
+
+/* Simple text link */
+.link-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--accent-blue);
+  text-decoration: none;
+}
+
+.link-text:hover {
+  text-decoration: underline;
+}
+
+/* =============================================================================
+   SIZE VARIANTS
+   ============================================================================= */
+
+/* Small badges */
+.badge-sm,
+.priority-badge-sm,
+.status-badge-sm {
+  padding: 1px 6px;
+  font-size: 9px;
+}
+
+/* Large badges */
+.badge-lg,
+.priority-badge-lg,
+.status-badge-lg {
+  padding: 4px 12px;
+  font-size: 12px;
+}

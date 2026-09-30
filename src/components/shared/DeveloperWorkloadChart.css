@@ -1,0 +1,190 @@
+/**
+ * DeveloperWorkloadChart - Shared styles for the workload chart component
+ */
+
+.workload-chart-shared {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  border: 1px solid var(--border);
+}
+
+.workload-chart-shared .chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.workload-chart-shared .chart-header h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.workload-chart-shared .chart-header h3 svg {
+  color: var(--accent-blue);
+}
+
+.workload-chart-shared .chart-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.workload-chart-shared .chart-subtitle {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.workload-chart-shared .jira-link {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--accent-blue);
+  text-decoration: none;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  background: rgba(59, 130, 246, 0.1);
+  transition: all 0.2s ease;
+}
+
+.workload-chart-shared .jira-link:hover {
+  background: rgba(59, 130, 246, 0.2);
+  text-decoration: none;
+}
+
+.workload-chart-shared .jira-link svg {
+  flex-shrink: 0;
+}
+
+.horizontal-bars-shared {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.horizontal-bars-shared::-webkit-scrollbar {
+  width: 6px;
+}
+
+.horizontal-bars-shared::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: 3px;
+}
+
+.horizontal-bars-shared::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+.horizontal-bars-shared::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+.workload-chart-shared .bar-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.workload-chart-shared .bar-name {
+  width: 120px;
+  min-width: 120px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.workload-chart-shared .bar-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.workload-chart-shared .stacked-bar {
+  flex: 1;
+  height: 18px;
+  background: var(--bg-tertiary);
+  border-radius: 4px;
+  display: flex;
+  overflow: hidden;
+}
+
+.workload-chart-shared .bar-segment {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.workload-chart-shared .bar-segment.stories {
+  background: var(--accent-blue);
+}
+
+.workload-chart-shared .bar-segment.bugs {
+  background: var(--danger);
+}
+
+.workload-chart-shared .bar-segment.review {
+  background: var(--warning);
+}
+
+.workload-chart-shared .bar-total {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+  min-width: 24px;
+  text-align: right;
+}
+
+.workload-chart-shared .chart-legend {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+
+.workload-chart-shared .legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.workload-chart-shared .legend-item .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+.workload-chart-shared .legend-item .dot.stories {
+  background: var(--accent-blue);
+}
+
+.workload-chart-shared .legend-item .dot.bugs {
+  background: var(--danger);
+}
+
+.workload-chart-shared .legend-item .dot.review {
+  background: var(--warning);
+}
+
+.workload-chart-shared .empty-chart {
+  padding: 24px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 13px;
+}

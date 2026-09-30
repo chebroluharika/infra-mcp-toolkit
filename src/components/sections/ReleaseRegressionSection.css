@@ -1,0 +1,1827 @@
+/**
+ * ReleaseRegressionSection Styles
+ * Modern Regression Tracking Dashboard with clickable category cards
+ */
+
+/* Loading & Error States */
+.regression-tracking .loading-state,
+.regression-tracking .error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  gap: 16px;
+  color: var(--text-secondary);
+}
+
+.regression-tracking .error-state {
+  color: #ef4444;
+}
+
+.regression-tracking .spinning {
+  animation: spin 1s linear infinite;
+}
+
+/* Note: @keyframes spin is defined in layout.css */
+
+/* Header */
+.regression-tracking .header-subtitle {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+/* No Config State */
+.regression-tracking .no-config-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  text-align: center;
+}
+
+.regression-tracking .no-config-icon {
+  background: rgba(99, 102, 241, 0.1);
+  padding: 16px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+  color: #6366f1;
+}
+
+.regression-tracking .no-config-state h3 {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+}
+
+.regression-tracking .no-config-state p {
+  margin: 0;
+  color: var(--text-muted);
+  max-width: 450px;
+  line-height: 1.6;
+}
+
+.regression-tracking .no-config-state code {
+  background: var(--bg-tertiary);
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin: 0 4px;
+  font-size: 13px;
+}
+
+.regression-tracking .config-example {
+  margin-top: 20px;
+  padding: 12px 16px;
+  background: var(--bg-tertiary);
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: monospace;
+  text-align: left;
+  white-space: pre;
+}
+
+/* No Data Message */
+.regression-tracking .no-data-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 40px;
+  text-align: center;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  margin-top: 20px;
+}
+
+.regression-tracking .no-data-message svg {
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.regression-tracking .no-data-message h3 {
+  margin: 0 0 12px 0;
+  color: var(--text-primary);
+  font-size: 18px;
+}
+
+.regression-tracking .no-data-message p {
+  margin: 0 0 8px 0;
+  color: var(--text-secondary);
+  font-size: 14px;
+  max-width: 500px;
+}
+
+.regression-tracking .no-data-message .hint {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+/* Overall Progress Section */
+.regression-tracking .overall-progress-section {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+}
+
+.regression-tracking .progress-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.regression-tracking .progress-header svg {
+  color: #6366f1;
+}
+
+.regression-tracking .progress-title {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.regression-tracking .progress-stats {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-left: auto;
+}
+
+.regression-tracking .progress-percent {
+  font-weight: 700;
+  font-size: 16px;
+  color: #6366f1;
+}
+
+.regression-tracking .progress-bar-container {
+  height: 10px;
+  background: var(--bg-tertiary);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.regression-tracking .progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #6366f1, #10b981);
+  border-radius: 5px;
+  transition: width 0.5s ease;
+}
+
+/* Analysis Charts Section - Clean Minimal Design */
+.regression-tracking .regression-charts-section {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 12px;
+  margin-bottom: 16px;
+  align-items: flex-start !important;
+}
+
+.regression-tracking .regression-charts-section > .chart-card {
+  flex: 1 1 0;
+  min-width: 0;
+  height: auto !important;
+  min-height: 0 !important;
+  align-self: flex-start !important;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+
+.regression-tracking .chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.regression-tracking .chart-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.regression-tracking .chart-title svg {
+  color: var(--text-muted);
+}
+
+.regression-tracking .chart-badge {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+/* Horizontal Bar Charts - Clean Style */
+.regression-tracking .horizontal-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.regression-tracking .bar-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.regression-tracking .bar-label {
+  width: 100px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.regression-tracking .bar-track {
+  flex: 1;
+  height: 24px;
+  background: #f0f0eb;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.regression-tracking .bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+
+.regression-tracking .bar-count {
+  width: 28px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: right;
+}
+
+/* Timeline Chart - Wide Card */
+.regression-tracking .chart-card-wide {
+  flex: 2;
+}
+
+.regression-tracking .chart-stats {
+  display: flex;
+  gap: 16px;
+}
+
+.regression-tracking .stat-item {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.regression-tracking .stat-item strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.regression-tracking .timeline-chart-container {
+  height: 140px;
+}
+
+.regression-tracking .no-chart-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 8px;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.regression-tracking .no-chart-data svg {
+  opacity: 0.4;
+}
+
+.regression-tracking .no-results-message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.regression-tracking .no-results-message svg {
+  opacity: 0.5;
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 1100px) {
+  .regression-tracking .regression-charts-section {
+    flex-wrap: wrap !important;
+  }
+  
+  .regression-tracking .chart-card-wide {
+    flex: 1 1 100%;
+    order: -1;
+  }
+}
+
+@media (max-width: 700px) {
+  .regression-tracking .regression-charts-section {
+    flex-direction: column !important;
+  }
+  
+  .regression-tracking .regression-charts-section > .chart-card {
+    flex: none;
+    width: 100%;
+  }
+  
+  .regression-tracking .chart-stats {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
+
+/* Category Cards Grid */
+.regression-tracking .category-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.regression-tracking .category-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.regression-tracking .category-card:hover:not(.empty) {
+  border-color: var(--card-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.regression-tracking .category-card.selected {
+  border-color: var(--card-color);
+  background: var(--bg-secondary);
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.15);
+}
+
+.regression-tracking .category-card.empty {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.regression-tracking .category-card.no-matches {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.regression-tracking .category-card.no-matches .card-progress-bar {
+  opacity: 0.5;
+}
+
+.regression-tracking .no-matches-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  font-style: italic;
+}
+
+.regression-tracking .card-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--card-gradient);
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.regression-tracking .card-icon {
+  font-size: 24px;
+  filter: grayscale(100%) brightness(200%);
+}
+
+.regression-tracking .card-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.regression-tracking .card-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.regression-tracking .card-stats-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.regression-tracking .card-progress {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--card-color);
+}
+
+.regression-tracking .card-percent {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.regression-tracking .card-progress-bar {
+  height: 4px;
+  background: var(--bg-tertiary);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.regression-tracking .card-progress-fill {
+  height: 100%;
+  background: var(--card-color);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.regression-tracking .selected-indicator {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--card-color);
+}
+
+/* Selected Category Section */
+.regression-tracking .selected-category-section {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.regression-tracking .section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  background: var(--bg-tertiary);
+  border-left: 4px solid var(--card-color);
+}
+
+.regression-tracking .section-icon {
+  font-size: 20px;
+}
+
+.regression-tracking .section-title {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--text-primary);
+}
+
+.regression-tracking .section-count {
+  font-size: 12px;
+  color: var(--text-muted);
+  background: var(--bg-secondary);
+  padding: 4px 10px;
+  border-radius: 12px;
+}
+
+/* Stories Table */
+.regression-tracking .stories-table-container {
+  overflow-x: auto;
+}
+
+.regression-tracking .stories-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.regression-tracking .stories-table th {
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-color);
+  white-space: nowrap;
+}
+
+.regression-tracking .stories-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 13px;
+}
+
+.regression-tracking .stories-table tr:last-child td {
+  border-bottom: none;
+}
+
+.regression-tracking .stories-table tr:hover {
+  background: var(--bg-hover, rgba(0, 0, 0, 0.02));
+}
+
+.regression-tracking .col-key {
+  width: 90px;
+  white-space: nowrap;
+}
+
+.regression-tracking .col-name {
+  min-width: 250px;
+}
+
+.regression-tracking .col-assignee {
+  width: 130px;
+  white-space: nowrap;
+}
+
+.regression-tracking .col-status {
+  width: 110px;
+  white-space: nowrap;
+}
+
+.regression-tracking .col-testrail {
+  width: 200px;
+}
+
+.regression-tracking .loading-testrail {
+  display: inline-flex;
+  align-items: center;
+  color: var(--text-muted);
+}
+
+.regression-tracking .no-testrail {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.regression-tracking .col-comment {
+  width: 180px;
+}
+
+.regression-tracking .story-key-link {
+  color: #6366f1;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.regression-tracking .story-key-link:hover {
+  text-decoration: underline;
+}
+
+.regression-tracking .story-summary {
+  color: var(--text-primary);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.regression-tracking .assignee-name {
+  font-size: 12px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  max-width: 130px;
+}
+
+/* Status Badge */
+.regression-tracking .status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.regression-tracking .status-badge.done {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+}
+
+.regression-tracking .status-badge.in_progress,
+.regression-tracking .status-badge.in-progress {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+}
+
+.regression-tracking .status-badge.blocked {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+
+.regression-tracking .status-badge.todo {
+  background: rgba(107, 114, 128, 0.1);
+  color: #6b7280;
+}
+
+/* Status Icons */
+.regression-tracking .status-icon.done {
+  color: #10b981;
+}
+
+.regression-tracking .status-icon.in-progress {
+  color: #3b82f6;
+}
+
+.regression-tracking .status-icon.blocked {
+  color: #ef4444;
+}
+
+.regression-tracking .status-icon.todo {
+  color: #6b7280;
+}
+
+/* Parsed Comments for Manual Validation */
+.regression-tracking .parsed-comments {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.regression-tracking .comment-summary {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.regression-tracking .summary-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.regression-tracking .no-parsed-results {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Intent badge for semantic classification */
+.regression-tracking .intent-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.regression-tracking .intent-badge.passed {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.regression-tracking .intent-badge.failed {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.regression-tracking .intent-badge.blocked {
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.regression-tracking .intent-badge.in_progress {
+  background: rgba(59, 130, 246, 0.15);
+  color: #3b82f6;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.regression-tracking .summary-text.expanded {
+  -webkit-line-clamp: unset;
+  white-space: normal;
+}
+
+.regression-tracking .load-comment-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 11px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.regression-tracking .load-comment-btn:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+  border-color: var(--accent-cyan);
+}
+
+.regression-tracking .load-all-comments-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.regression-tracking .load-all-comments-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.regression-tracking .load-all-comments-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.regression-tracking .load-all-comments-btn.loading {
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+}
+
+.regression-tracking .pending-load {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* TestRail Run Badge in Table */
+.regression-tracking .testrail-run-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(139, 92, 246, 0.12));
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+}
+
+.regression-tracking .testrail-run-badge:hover {
+  border-color: #6366f1;
+  background: rgba(99, 102, 241, 0.15);
+  transform: translateY(-1px);
+}
+
+.regression-tracking .testrail-run-badge .run-name-short {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
+}
+
+.regression-tracking .testrail-run-badge .run-stats {
+  font-size: 11px;
+  font-weight: 600;
+  color: #6366f1;
+  font-family: var(--font-mono);
+}
+
+.regression-tracking .testrail-run-badge .run-mini-bar {
+  flex: 1;
+  height: 4px;
+  background: var(--bg-tertiary);
+  border-radius: 2px;
+  overflow: hidden;
+  min-width: 40px;
+}
+
+.regression-tracking .testrail-run-badge .run-mini-fill {
+  height: 100%;
+  border-radius: 2px;
+}
+
+.regression-tracking .testrail-run-badge .run-percent {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+/* TestRail Run Modal Styles */
+.regression-tracking .testrail-run-modal {
+  max-width: 750px;
+}
+
+.regression-tracking .modal-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 50px;
+  color: var(--text-muted);
+}
+
+.regression-tracking .modal-error {
+  padding: 40px;
+  text-align: center;
+  color: #ef4444;
+}
+
+.regression-tracking .testrail-run-summary {
+  padding: 16px 24px;
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.regression-tracking .run-summary-stats {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.regression-tracking .run-summary-stats .stat {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.regression-tracking .run-summary-stats .stat.passed { color: #10b981; }
+.regression-tracking .run-summary-stats .stat.failed { color: #ef4444; }
+.regression-tracking .run-summary-stats .stat.blocked { color: #f59e0b; }
+.regression-tracking .run-summary-stats .stat.untested { color: #6b7280; }
+
+.regression-tracking .run-progress-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.regression-tracking .run-progress-bar {
+  flex: 1;
+  height: 6px;
+  background: var(--bg-secondary);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.regression-tracking .run-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981, #22c55e);
+  border-radius: 3px;
+}
+
+.regression-tracking .run-pass-rate {
+  font-size: 14px;
+  font-weight: 600;
+  color: #10b981;
+  font-family: var(--font-mono);
+}
+
+.regression-tracking .testrail-open-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #6366f1;
+  text-decoration: none;
+}
+
+.regression-tracking .testrail-open-link:hover {
+  text-decoration: underline;
+}
+
+.regression-tracking .testrail-test-list {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+
+.regression-tracking .testrail-test-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 24px;
+  border-bottom: 1px solid var(--border-subtle);
+  transition: background 0.15s;
+}
+
+.regression-tracking .testrail-test-item:hover {
+  background: var(--bg-hover);
+}
+
+.regression-tracking .testrail-test-item.passed { border-left: 3px solid #10b981; }
+.regression-tracking .testrail-test-item.failed { border-left: 3px solid #ef4444; }
+.regression-tracking .testrail-test-item.blocked { border-left: 3px solid #f59e0b; }
+.regression-tracking .testrail-test-item.untested { border-left: 3px solid #6b7280; }
+.regression-tracking .testrail-test-item.retest { border-left: 3px solid #3b82f6; }
+
+.regression-tracking .test-status-icon {
+  flex-shrink: 0;
+}
+
+.regression-tracking .test-info {
+  flex: 1;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  min-width: 0;
+}
+
+.regression-tracking .test-case-id {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.regression-tracking .test-title {
+  font-size: 13px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.regression-tracking .test-status-label {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: capitalize;
+  padding: 3px 8px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.regression-tracking .test-status-label.passed {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+}
+
+.regression-tracking .test-status-label.failed {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+
+.regression-tracking .test-status-label.blocked {
+  background: rgba(245, 158, 11, 0.1);
+  color: #f59e0b;
+}
+
+.regression-tracking .test-status-label.untested {
+  background: rgba(107, 114, 128, 0.1);
+  color: #6b7280;
+}
+
+.regression-tracking .test-status-label.retest {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+}
+
+/* Comment Cell */
+.regression-tracking .comment-cell {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  color: var(--text-secondary);
+}
+
+.regression-tracking .comment-cell svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--text-muted);
+}
+
+.regression-tracking .comment-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.regression-tracking .load-comment-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  color: var(--text-muted);
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.regression-tracking .load-comment-btn:hover {
+  color: #6366f1;
+  border-color: #6366f1;
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.regression-tracking .loading-comment {
+  display: flex;
+  align-items: center;
+  color: var(--text-muted);
+}
+
+/* Subtask Modal */
+.regression-tracking .subtask-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+.regression-tracking .subtask-modal {
+  background: var(--bg-secondary);
+  border-radius: 16px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: modalSlideIn 0.2s ease;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.regression-tracking .modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 20px 24px;
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.regression-tracking .modal-title {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.regression-tracking .modal-icon {
+  font-size: 24px;
+}
+
+.regression-tracking .modal-story-key {
+  font-size: 14px;
+  font-weight: 600;
+  color: #6366f1;
+  margin-bottom: 4px;
+}
+
+.regression-tracking .modal-story-summary {
+  font-size: 14px;
+  color: var(--text-primary);
+  max-width: 450px;
+}
+
+.regression-tracking .modal-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: all 0.2s;
+}
+
+.regression-tracking .modal-close:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+
+.regression-tracking .modal-subtitle {
+  padding: 12px 24px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.regression-tracking .subtask-list {
+  padding: 12px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.regression-tracking .subtask-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  background: var(--bg-tertiary);
+  border-radius: 10px;
+  transition: background 0.2s;
+}
+
+.regression-tracking .subtask-item:last-child {
+  margin-bottom: 0;
+}
+
+.regression-tracking .subtask-item:hover {
+  background: var(--bg-hover, rgba(0, 0, 0, 0.05));
+}
+
+.regression-tracking .subtask-item.done {
+  border-left: 3px solid #10b981;
+}
+
+.regression-tracking .subtask-item.in_progress {
+  border-left: 3px solid #3b82f6;
+}
+
+.regression-tracking .subtask-item.blocked {
+  border-left: 3px solid #ef4444;
+}
+
+.regression-tracking .subtask-item.todo {
+  border-left: 3px solid #6b7280;
+}
+
+.regression-tracking .subtask-status-icon {
+  flex-shrink: 0;
+}
+
+.regression-tracking .subtask-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.regression-tracking .subtask-key {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6366f1;
+  text-decoration: none;
+  margin-right: 8px;
+}
+
+.regression-tracking .subtask-key:hover {
+  text-decoration: underline;
+}
+
+.regression-tracking .subtask-summary {
+  font-size: 13px;
+  color: var(--text-primary);
+}
+
+.regression-tracking .subtask-status-label {
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.regression-tracking .subtask-status-label.done {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+}
+
+.regression-tracking .subtask-status-label.in_progress {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+}
+
+.regression-tracking .subtask-status-label.blocked {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+
+.regression-tracking .subtask-status-label.todo {
+  background: rgba(107, 114, 128, 0.1);
+  color: #6b7280;
+}
+
+/* Row status highlighting */
+.regression-tracking .status-row-done {
+  background: rgba(16, 185, 129, 0.02);
+}
+
+.regression-tracking .status-row-blocked {
+  background: rgba(239, 68, 68, 0.02);
+}
+
+/* Legend */
+.regression-tracking .legend {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  padding: 16px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.regression-tracking .legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* QA Workload Table */
+.regression-tracking .qa-workload-section {
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.regression-tracking .section-header-compact {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.regression-tracking .section-header-compact svg {
+  color: var(--accent-primary);
+}
+
+.regression-tracking .qa-workload-table-container {
+  overflow-x: auto;
+}
+
+.regression-tracking .qa-workload-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.regression-tracking .qa-workload-table th {
+  text-align: left;
+  padding: 10px 12px;
+  background: var(--bg-tertiary);
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.regression-tracking .qa-workload-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.regression-tracking .qa-workload-table .count-col {
+  text-align: center;
+  width: 90px;
+}
+
+.regression-tracking .qa-workload-table .qa-name-cell {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.regression-tracking .qa-workload-table .open-count {
+  color: #94a3b8;
+}
+
+.regression-tracking .qa-workload-table .in-progress-count {
+  color: #3b82f6;
+}
+
+.regression-tracking .qa-workload-table .closed-count {
+  color: #10b981;
+}
+
+.regression-tracking .qa-workload-table .total-count {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.regression-tracking .qa-workload-table .totals-row {
+  background: var(--bg-tertiary);
+}
+
+.regression-tracking .qa-workload-table .totals-row td {
+  border-bottom: none;
+}
+
+.regression-tracking .qa-workload-table .no-data-cell {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 20px;
+  font-style: italic;
+}
+
+.regression-tracking .qa-workload-table tbody tr:hover:not(.totals-row) {
+  background: var(--bg-hover);
+}
+
+/* ============================================
+   Global Engineer Filter Section
+   ============================================ */
+
+.regression-tracking .global-filter-section {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid #6366f1;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-bottom: 16px;
+}
+
+.regression-tracking .global-filter-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.regression-tracking .global-filter-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.regression-tracking .global-filter-label svg {
+  color: #6366f1;
+}
+
+.regression-tracking .global-filter-label .filter-badge {
+  background: #6366f1;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.regression-tracking .filter-summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.regression-tracking .filter-summary-text {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.regression-tracking .clear-filter-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #dc2626;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.regression-tracking .clear-filter-btn:hover {
+  background: #dc2626;
+  border-color: #dc2626;
+  color: white;
+}
+
+/* ============================================
+   Engineer Filter Dropdown
+   ============================================ */
+
+.regression-tracking .engineer-filter-container {
+  position: relative;
+}
+
+.regression-tracking .engineer-filter-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 13px;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.regression-tracking .engineer-filter-btn:hover {
+  border-color: #6366f1;
+}
+
+.regression-tracking .engineer-filter-btn.open {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+.regression-tracking .engineer-filter-btn.has-filter {
+  background: #6366f1;
+  border-color: #6366f1;
+  color: white;
+}
+
+.regression-tracking .engineer-filter-btn .chevron {
+  transition: transform 0.2s ease;
+  opacity: 0.6;
+}
+
+.regression-tracking .engineer-filter-btn .chevron.rotated {
+  transform: rotate(180deg);
+}
+
+.regression-tracking .engineer-filter-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 300px;
+  max-width: 360px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.regression-tracking .filter-dropdown-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-color);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.regression-tracking .filter-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.regression-tracking .filter-action-btn {
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 500;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.regression-tracking .filter-action-btn:hover:not(:disabled) {
+  background: #6366f1;
+  border-color: #6366f1;
+  color: white;
+}
+
+.regression-tracking .filter-action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.regression-tracking .filter-search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.regression-tracking .filter-search-box .search-icon {
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.regression-tracking .filter-search-box input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  color: var(--text-primary);
+  outline: none;
+}
+
+.regression-tracking .filter-search-box input::placeholder {
+  color: var(--text-muted);
+}
+
+.regression-tracking .filter-search-box .search-clear-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  background: var(--bg-tertiary);
+  border: none;
+  border-radius: 50%;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.regression-tracking .filter-search-box .search-clear-btn:hover {
+  background: var(--text-muted);
+  color: var(--bg-primary);
+}
+
+.regression-tracking .filter-options-list {
+  max-height: 280px;
+  overflow-y: auto;
+  padding: 4px 0;
+}
+
+.regression-tracking .filter-options-list .no-results {
+  padding: 20px 14px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.regression-tracking .filter-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: background 0.1s ease;
+}
+
+.regression-tracking .filter-option:hover {
+  background: var(--bg-hover);
+}
+
+.regression-tracking .filter-option input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #6366f1;
+  cursor: pointer;
+  flex-shrink: 0;
+  margin: 0;
+}
+
+.regression-tracking .filter-option .engineer-name {
+  flex: 1;
+  font-size: 13px;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.regression-tracking .filter-option .engineer-count {
+  font-size: 11px;
+  color: var(--text-secondary);
+  background: var(--bg-tertiary);
+  padding: 2px 8px;
+  border-radius: 10px;
+  min-width: 24px;
+  text-align: center;
+}
+
+.regression-tracking .section-count .filter-indicator {
+  font-size: 11px;
+  color: #6366f1;
+  font-weight: 500;
+}
+
+/* ============================================
+   Sunburst Chart Section
+   ============================================ */
+
+.regression-tracking .sunburst-section {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.regression-tracking .sunburst-header {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.regression-tracking .sunburst-header h3 {
+  margin: 0 0 6px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.regression-tracking .sunburst-header p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.regression-tracking .sunburst-content {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.regression-tracking .sunburst-content.drilldown-layout {
+  align-items: center;
+  gap: 40px;
+}
+
+.regression-tracking .sunburst-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 180px;
+  padding-top: 20px;
+}
+
+.regression-tracking .sunburst-legend.compact {
+  gap: 20px;
+  padding-top: 0;
+  min-width: 160px;
+}
+
+.regression-tracking .sunburst-legend .legend-items.horizontal {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.regression-tracking .sunburst-legend .legend-items.horizontal .legend-item {
+  flex: 0 0 auto;
+}
+
+.regression-tracking .sunburst-legend .legend-section h4 {
+  margin: 0 0 12px 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.regression-tracking .sunburst-legend .legend-section .legend-note {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.regression-tracking .sunburst-legend .legend-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.regression-tracking .sunburst-legend .legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+}
+
+.regression-tracking .sunburst-legend .legend-item.clickable {
+  cursor: pointer;
+  padding: 6px 10px;
+  margin: -6px -10px;
+  border-radius: 6px;
+  transition: background 0.15s ease;
+}
+
+.regression-tracking .sunburst-legend .legend-item.clickable:hover {
+  background: var(--bg-hover);
+}
+
+.regression-tracking .sunburst-legend .legend-color {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.regression-tracking .sunburst-legend .legend-label {
+  flex: 1;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .regression-tracking .category-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .regression-tracking .sunburst-content {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .regression-tracking .sunburst-legend {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+    padding-top: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .regression-tracking .category-cards-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .regression-tracking .stories-table-container {
+    overflow-x: auto;
+  }
+  
+  .regression-tracking .legend {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  
+  .regression-tracking .subtask-modal {
+    width: 95%;
+    max-height: 90vh;
+  }
+  
+  .regression-tracking .sunburst-chart-wrapper {
+    min-width: 100%;
+  }
+}
