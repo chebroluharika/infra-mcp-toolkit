@@ -1,0 +1,1852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoring Dashboard - Architecture Diagrams</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8fafc;
+            padding: 40px;
+            color: #1e293b;
+        }
+        
+        .diagram-container {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 60px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            page-break-inside: avoid;
+        }
+        
+        .diagram-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 30px;
+            text-align: center;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3b82f6;
+        }
+        
+        /* Diagram 1: High-Level Architecture */
+        .arch-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .users-box {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            padding: 20px 60px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 18px;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        }
+        
+        .arrow-down {
+            width: 3px;
+            height: 30px;
+            background: #94a3b8;
+            position: relative;
+        }
+        
+        .arrow-down::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 10px solid #94a3b8;
+        }
+        
+        .nginx-box {
+            background: linear-gradient(135deg, #059669, #10b981);
+            color: white;
+            padding: 25px 40px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 900px;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+        }
+        
+        .nginx-title {
+            font-size: 20px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .nginx-routes {
+            display: flex;
+            justify-content: space-around;
+            gap: 15px;
+        }
+        
+        .route-box {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-align: center;
+            flex: 1;
+        }
+        
+        .route-path {
+            font-weight: 700;
+            font-size: 16px;
+        }
+        
+        .route-desc {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+        
+        .services-row {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .service-box {
+            padding: 25px;
+            border-radius: 12px;
+            width: 260px;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .service-box.frontend {
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+        }
+        
+        .service-box.backend {
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+        }
+        
+        .service-box.streamlit {
+            background: linear-gradient(135deg, #ec4899, #f472b6);
+        }
+        
+        .service-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .service-port {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        
+        .service-items {
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        
+        .external-services {
+            background: linear-gradient(135deg, #475569, #64748b);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 900px;
+        }
+        
+        .external-title {
+            font-size: 18px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .external-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .ext-icon {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        /* Diagram 2: AI Agents */
+        .agents-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+        }
+        
+        .query-box {
+            background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 12px;
+            font-size: 16px;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4);
+        }
+        
+        .query-label {
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .root-agent {
+            background: linear-gradient(135deg, #7c3aed, #a78bfa);
+            color: white;
+            padding: 25px 50px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
+        }
+        
+        .root-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .root-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .agents-row {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .agent-box {
+            background: white;
+            border: 3px solid;
+            padding: 20px;
+            border-radius: 12px;
+            width: 140px;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        
+        .agent-box:hover {
+            transform: translateY(-5px);
+        }
+        
+        .agent-box.release { border-color: #ef4444; }
+        .agent-box.jenkins { border-color: #f59e0b; }
+        .agent-box.github { border-color: #10b981; }
+        .agent-box.testrail { border-color: #3b82f6; }
+        .agent-box.docs { border-color: #8b5cf6; }
+        .agent-box.tfa { border-color: #ec4899; }
+        
+        .agent-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .agent-name {
+            font-weight: 600;
+            font-size: 13px;
+            color: #374151;
+        }
+        
+        .mcp-tools {
+            background: linear-gradient(135deg, #1e293b, #334155);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .mcp-title {
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        
+        .mcp-subtitle {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        /* Diagram 3: Tech Stack Layers */
+        .stack-diagram {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .stack-layer {
+            padding: 25px;
+            border-radius: 12px;
+            color: white;
+        }
+        
+        .stack-layer.presentation {
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+        }
+        
+        .stack-layer.application {
+            background: linear-gradient(135deg, #10b981, #34d399);
+        }
+        
+        .stack-layer.data {
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+        }
+        
+        .stack-layer.infrastructure {
+            background: linear-gradient(135deg, #ef4444, #f87171);
+        }
+        
+        .stack-layer.integration {
+            background: linear-gradient(135deg, #6366f1, #818cf8);
+        }
+        
+        .layer-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        
+        .layer-techs {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .tech-badge {
+            background: rgba(255, 255, 255, 0.25);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        /* Diagram 4: Docker Containers */
+        .docker-diagram {
+            background: #1e293b;
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .docker-host {
+            border: 2px dashed #475569;
+            border-radius: 12px;
+            padding: 25px;
+        }
+        
+        .docker-title {
+            color: #94a3b8;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .containers-row {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+        
+        .container-box {
+            border-radius: 12px;
+            padding: 20px;
+            width: 200px;
+            text-align: center;
+        }
+        
+        .container-box.frontend-c {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+        }
+        
+        .container-box.backend-c {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+        
+        .container-box.streamlit-c {
+            background: linear-gradient(135deg, #ec4899, #db2777);
+        }
+        
+        .container-name {
+            color: white;
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        .container-tech {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+        
+        .container-stats {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 10px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 12px;
+            line-height: 1.6;
+        }
+        
+        .shared-volume {
+            background: #334155;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            color: #94a3b8;
+        }
+        
+        .volume-title {
+            font-weight: 600;
+            color: #e2e8f0;
+            margin-bottom: 5px;
+        }
+        
+        /* Diagram 5: Integration Wheel */
+        .wheel-diagram {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            margin: 0 auto;
+        }
+        
+        .center-hub {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 180px;
+            height: 180px;
+            background: linear-gradient(135deg, #1e293b, #334155);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+        }
+        
+        .hub-title {
+            font-weight: 700;
+            font-size: 16px;
+            text-align: center;
+        }
+        
+        .hub-subtitle {
+            font-size: 12px;
+            opacity: 0.8;
+            text-align: center;
+        }
+        
+        .integration-node {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .integration-node::before {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background: #cbd5e1;
+        }
+        
+        .node-jenkins { background: linear-gradient(135deg, #d97706, #f59e0b); top: 10px; left: 50%; transform: translateX(-50%); }
+        .node-jira { background: linear-gradient(135deg, #2563eb, #3b82f6); top: 80px; right: 40px; }
+        .node-github { background: linear-gradient(135deg, #1f2937, #374151); top: 200px; right: 0; }
+        .node-testrail { background: linear-gradient(135deg, #059669, #10b981); bottom: 80px; right: 40px; }
+        .node-slack { background: linear-gradient(135deg, #7c3aed, #8b5cf6); bottom: 10px; left: 50%; transform: translateX(-50%); }
+        .node-rancher { background: linear-gradient(135deg, #0284c7, #0ea5e9); bottom: 80px; left: 40px; }
+        .node-sheets { background: linear-gradient(135deg, #16a34a, #22c55e); top: 200px; left: 0; }
+        .node-mongodb { background: linear-gradient(135deg, #15803d, #4ade80); top: 80px; left: 40px; }
+        
+        .node-icon {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        /* Diagram 6: RAG Flow */
+        .rag-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .rag-step {
+            width: 100%;
+            padding: 20px 30px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .rag-step.query {
+            background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+            color: white;
+        }
+        
+        .rag-step.embedding {
+            background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+            color: white;
+        }
+        
+        .rag-step.search {
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+            color: white;
+        }
+        
+        .rag-step.context {
+            background: linear-gradient(135deg, #10b981, #34d399);
+            color: white;
+        }
+        
+        .rag-step.llm {
+            background: linear-gradient(135deg, #ec4899, #f472b6);
+            color: white;
+        }
+        
+        .rag-step.response {
+            background: linear-gradient(135deg, #6366f1, #818cf8);
+            color: white;
+        }
+        
+        .rag-number {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        
+        .rag-content {
+            flex: 1;
+        }
+        
+        .rag-title {
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+        
+        .rag-desc {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+        
+        .rag-arrow {
+            width: 3px;
+            height: 20px;
+            background: #cbd5e1;
+            position: relative;
+        }
+        
+        .rag-arrow::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 8px solid #cbd5e1;
+        }
+        
+        /* Diagram 7: Data Flow */
+        .dataflow-diagram {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .dataflow-sources {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        .source-box {
+            background: linear-gradient(135deg, #475569, #64748b);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 120px;
+        }
+        
+        .source-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        
+        .source-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .dataflow-backend {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+        
+        .backend-title {
+            font-size: 20px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .backend-components {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .backend-component {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px 25px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .component-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .component-items {
+            font-size: 12px;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+        
+        .dataflow-storage {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .storage-box {
+            padding: 20px 30px;
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+            min-width: 150px;
+        }
+        
+        .storage-box.faiss {
+            background: linear-gradient(135deg, #7c3aed, #a78bfa);
+        }
+        
+        .storage-box.mongo {
+            background: linear-gradient(135deg, #16a34a, #4ade80);
+        }
+        
+        .storage-box.file {
+            background: linear-gradient(135deg, #ea580c, #fb923c);
+        }
+        
+        .storage-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        
+        .storage-title {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+        
+        .storage-desc {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        
+        /* Connectors */
+        .connector {
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
+        
+        .connector-line {
+            width: 3px;
+            height: 30px;
+            background: linear-gradient(to bottom, #94a3b8, #cbd5e1);
+            position: relative;
+        }
+        
+        .connector-line::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 8px solid #cbd5e1;
+        }
+        
+        /* Page break for printing */
+        @media print {
+            .diagram-container {
+                page-break-inside: avoid;
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Diagram 1: High-Level System Architecture -->
+    <div class="diagram-container">
+        <h2 class="diagram-title">System Architecture Overview</h2>
+        <div class="arch-diagram">
+            <div class="users-box">👤 Users (Browser / Mobile)</div>
+            
+            <div class="arrow-down"></div>
+            
+            <div class="nginx-box">
+                <div class="nginx-title">🌐 NGINX Reverse Proxy (Port 8080)</div>
+                <div class="nginx-routes">
+                    <div class="route-box">
+                        <div class="route-path">/</div>
+                        <div class="route-desc">React Static Files</div>
+                    </div>
+                    <div class="route-box">
+                        <div class="route-path">/api/*</div>
+                        <div class="route-desc">REST API Endpoints</div>
+                    </div>
+                    <div class="route-box">
+                        <div class="route-path">/streamlit/*</div>
+                        <div class="route-desc">AI Chat Interface</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="arrow-down"></div>
+            
+            <div class="services-row">
+                <div class="service-box frontend">
+                    <div class="service-title">⚛️ React Frontend</div>
+                    <div class="service-port">Port 8080</div>
+                    <div class="service-items">
+                        • Overview Dashboard<br>
+                        • Section Components<br>
+                        • Recharts Visualizations<br>
+                        • Embedded Chat Window
+                    </div>
+                </div>
+                <div class="service-box backend">
+                    <div class="service-title">⚡ FastAPI Backend</div>
+                    <div class="service-port">Port 8000</div>
+                    <div class="service-items">
+                        • REST API Routers<br>
+                        • Service Clients<br>
+                        • Background Schedulers<br>
+                        • FAISS Indexers
+                    </div>
+                </div>
+                <div class="service-box streamlit">
+                    <div class="service-title">🤖 Streamlit AI</div>
+                    <div class="service-port">Port 8501</div>
+                    <div class="service-items">
+                        • Agent Runner<br>
+                        • Google ADK<br>
+                        • MCP Tools<br>
+                        • Chat Interface
+                    </div>
+                </div>
+            </div>
+            
+            <div class="arrow-down"></div>
+            
+            <div style="background: linear-gradient(135deg, #7c3aed, #a78bfa); color: white; padding: 25px 40px; border-radius: 12px; width: 90%; max-width: 900px; box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);">
+                <div style="font-size: 20px; font-weight: 700; text-align: center; margin-bottom: 15px;">🦙 NS Agent Gateway Integration</div>
+                <div style="display: flex; justify-content: space-around; gap: 15px; flex-wrap: wrap;">
+                    <div style="background: rgba(255, 255, 255, 0.2); padding: 12px 20px; border-radius: 8px; text-align: center; flex: 1;">
+                        <div style="font-weight: 700; font-size: 16px;">LLM Provider</div>
+                        <div style="font-size: 13px; opacity: 0.9;">Llama 3.2 11B Vision</div>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.2); padding: 12px 20px; border-radius: 8px; text-align: center; flex: 1;">
+                        <div style="font-weight: 700; font-size: 16px;">LiteLLM</div>
+                        <div style="font-size: 13px; opacity: 0.9;">Unified API Interface</div>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.2); padding: 12px 20px; border-radius: 8px; text-align: center; flex: 1;">
+                        <div style="font-weight: 700; font-size: 16px;">Embeddings</div>
+                        <div style="font-size: 13px; opacity: 0.9;">TEI (Text Embeddings Inference)</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="arrow-down"></div>
+            
+            <div class="external-services">
+                <div class="external-title">🔗 External Services & Integrations</div>
+                <div class="external-icons">
+                    <div class="ext-icon">🔧 Jenkins</div>
+                    <div class="ext-icon">📋 JIRA</div>
+                    <div class="ext-icon">🐙 GitHub</div>
+                    <div class="ext-icon">💬 Slack</div>
+                    <div class="ext-icon">🧪 TestRail</div>
+                    <div class="ext-icon">🐄 Rancher</div>
+                    <div class="ext-icon">📊 Google Sheets</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Diagram 2: AI Multi-Agent Architecture -->
+    <div class="diagram-container">
+        <h2 class="diagram-title">AI Multi-Agent Architecture</h2>
+        <div class="agents-diagram">
+            <div class="query-box">
+                <div class="query-label">💬 User Query</div>
+                <div>"What's the release readiness for R100?"</div>
+            </div>
+            
+            <div class="arrow-down"></div>
+            
+            <div class="root-agent">
+                <div class="root-title">🧠 Root Agent</div>
+                <div class="root-subtitle">Intent Classification & Pattern Routing</div>
+            </div>
+            
+            <div class="arrow-down"></div>
+            
+            <div class="agents-row">
+                <div class="agent-box release">
+                    <div class="agent-icon">📅</div>
+                    <div class="agent-name">Release Readiness</div>
+                </div>
+                <div class="agent-box jenkins">
+                    <div class="agent-icon">🔧</div>
+                    <div class="agent-name">Jenkins Agent</div>
+                </div>
+                <div class="agent-box github">
+                    <div class="agent-icon">🐙</div>
+                    <div class="agent-name">GitHub Agent</div>
+                </div>
+                <div class="agent-box testrail">
+                    <div class="agent-icon">🧪</div>
+                    <div class="agent-name">TestRail Agent</div>
+                </div>
+                <div class="agent-box docs">
+                    <div class="agent-icon">📚</div>
+                    <div class="agent-name">Docs Agent</div>
+                </div>
+                <div class="agent-box tfa">
+                    <div class="agent-icon">🔍</div>
+                    <div class="agent-name">TFA Agent</div>
+                </div>
+            </div>
+            
+            <div class="arrow-down"></div>
+            
+            <div class="mcp-tools">
+                <div class="mcp-title">🔌 MCP Tools Layer</div>
+                <div class="mcp-subtitle">Model Context Protocol → Backend APIs → External Services</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Diagram 3: Tech Stack Layers -->
+    <div class="diagram-container">
+        <h2 class="diagram-title">Technology Stack</h2>
+        <div class="stack-diagram">
+            <div class="stack-layer presentation">
+                <div class="layer-title">🎨 Presentation Layer</div>
+                <div class="layer-techs">
+                    <span class="tech-badge">React 18</span>
+                    <span class="tech-badge">Recharts</span>
+                    <span class="tech-badge">Lucide Icons</span>
+                    <span class="tech-badge">Custom CSS</span>
+                    <span class="tech-badge">Streamlit</span>
+                </div>
+            </div>
+            <div class="stack-layer application">
+                <div class="layer-title">⚙️ Application Layer</div>
+                <div class="layer-techs">
+                    <span class="tech-badge">FastAPI</span>
+                    <span class="tech-badge">Uvicorn</span>
+                    <span class="tech-badge">Pydantic</span>
+                    <span class="tech-badge">Google ADK</span>
+                    <span class="tech-badge">LiteLLM</span>
+                </div>
+            </div>
+            <div class="stack-layer data">
+                <div class="layer-title">💾 Data Layer</div>
+                <div class="layer-techs">
+                    <span class="tech-badge">FAISS Vectors</span>
+                    <span class="tech-badge">MongoDB</span>
+                    <span class="tech-badge">File System Cache</span>
+                </div>
+            </div>
+            <div class="stack-layer infrastructure">
+                <div class="layer-title">🏗️ Infrastructure Layer</div>
+                <div class="layer-techs">
+                    <span class="tech-badge">Docker</span>
+                    <span class="tech-badge">Docker Compose</span>
+                    <span class="tech-badge">Nginx</span>
+                    <span class="tech-badge">Host Network</span>
+                </div>
+            </div>
+            <div class="stack-layer integration">
+                <div class="layer-title">🔗 Integration Layer</div>
+                <div class="layer-techs">
+                    <span class="tech-badge">Jenkins</span>
+                    <span class="tech-badge">JIRA</span>
+                    <span class="tech-badge">GitHub</span>
+                    <span class="tech-badge">Slack</span>
+                    <span class="tech-badge">TestRail</span>
+                    <span class="tech-badge">Rancher</span>
+                    <span class="tech-badge">Google Sheets</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Diagram 4: Docker Container Architecture -->
+    <div class="diagram-container">
+        <h2 class="diagram-title">Docker Container Architecture</h2>
+        <div class="docker-diagram">
+            <div class="docker-host">
+                <div class="docker-title">🐳 Docker Compose Stack</div>
+                <div class="containers-row">
+                    <div class="container-box frontend-c">
+                        <div class="container-name">Frontend</div>
+                        <div class="container-tech">Nginx + React</div>
+                        <div class="container-stats">
+                            Port: 8080<br>
+                            CPU: 1 core<br>
+                            RAM: 512 MB
+                        </div>
+                    </div>
+                    <div class="container-box backend-c">
+                        <div class="container-name">Backend</div>
+                        <div class="container-tech">FastAPI + Uvicorn</div>
+                        <div class="container-stats">
+                            Port: 8000<br>
+                            CPU: 2 cores<br>
+                            RAM: 2 GB
+                        </div>
+                    </div>
+                    <div class="container-box streamlit-c">
+                        <div class="container-name">Streamlit</div>
+                        <div class="container-tech">AI Agents + Chat</div>
+                        <div class="container-stats">
+                            Port: 8501<br>
+                            CPU: 1 core<br>
+                            RAM: 1 GB
+                        </div>
+                    </div>
+                </div>
+                <div class="shared-volume">
+                    <div class="volume-title">📁 Shared Volume: ./data</div>
+                    <div>FAISS Indexes • Health Snapshots • Cache Files</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Diagram 5: Integration Ecosystem -->
+    <div class="diagram-container">
+        <h2 class="diagram-title">Integration Ecosystem</h2>
+        <div class="wheel-diagram">
+            <div class="center-hub">
+                <div class="hub-title">Monitoring<br>Dashboard</div>
+                <div class="hub-subtitle">FastAPI Backend</div>
+            </div>
+            <div class="integration-node node-jenkins">
+                <div class="node-icon">🔧</div>
+                Jenkins
+            </div>
+            <div class="integration-node node-jira">
+                <div class="node-icon">📋</div>
+                JIRA
+            </div>
+            <div class="integration-node node-github">
+                <div class="node-icon">🐙</div>
+                GitHub
+            </div>
+            <div class="integration-node node-testrail">
+                <div class="node-icon">🧪</div>
+                TestRail
+            </div>
+            <div class="integration-node node-slack">
+                <div class="node-icon">💬</div>
+                Slack
+            </div>
+            <div class="integration-node node-rancher">
+                <div class="node-icon">🐄</div>
+                Rancher
+            </div>
+            <div class="integration-node node-sheets">
+                <div class="node-icon">📊</div>
+                Sheets
+            </div>
+            <div class="integration-node node-mongodb">
+                <div class="node-icon">🍃</div>
+                MongoDB
+            </div>
+        </div>
+    </div>
+
+    <!-- Diagram 6: RAG Flow -->
+    <div class="diagram-container">
+        <h2 class="diagram-title">RAG (Retrieval Augmented Generation) Flow</h2>
+        <div class="rag-diagram">
+            <div class="rag-step query">
+                <div class="rag-number">1</div>
+                <div class="rag-content">
+                    <div class="rag-title">User Query</div>
+                    <div class="rag-desc">"Find tests related to login failure"</div>
+                </div>
+            </div>
+            
+            <div class="rag-arrow"></div>
+            
+            <div class="rag-step embedding">
+                <div class="rag-number">2</div>
+                <div class="rag-content">
+                    <div class="rag-title">Generate Embedding</div>
+                    <div class="rag-desc">Convert query to vector using TEI (Text Embeddings Inference) via NSAgent</div>
+                </div>
+            </div>
+            
+            <div class="rag-arrow"></div>
+            
+            <div class="rag-step search">
+                <div class="rag-number">3</div>
+                <div class="rag-content">
+                    <div class="rag-title">Vector Similarity Search</div>
+                    <div class="rag-desc">Search FAISS indexes (TestRail, GitHub repos, Documentation)</div>
+                </div>
+            </div>
+            
+            <div class="rag-arrow"></div>
+            
+            <div class="rag-step context">
+                <div class="rag-number">4</div>
+                <div class="rag-content">
+                    <div class="rag-title">Retrieve Context</div>
+                    <div class="rag-desc">Top-K relevant chunks: test cases, code files, docs</div>
+                </div>
+            </div>
+            
+            <div class="rag-arrow"></div>
+            
+            <div class="rag-step llm">
+                <div class="rag-number">5</div>
+                <div class="rag-content">
+                    <div class="rag-title">LLM Processing</div>
+                    <div class="rag-desc">Llama 3.2 / GPT-4 generates answer with retrieved context</div>
+                </div>
+            </div>
+            
+            <div class="rag-arrow"></div>
+            
+            <div class="rag-step response">
+                <div class="rag-number">6</div>
+                <div class="rag-content">
+                    <div class="rag-title">Response to User</div>
+                    <div class="rag-desc">"Found 3 relevant tests for login failure..."</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Diagram 7: Data Flow -->
+    <div class="diagram-container">
+        <h2 class="diagram-title">Data Flow Architecture</h2>
+        <div class="dataflow-diagram">
+            <div class="dataflow-sources">
+                <div class="source-box">
+                    <div class="source-icon">🔧</div>
+                    <div class="source-name">Jenkins</div>
+                </div>
+                <div class="source-box">
+                    <div class="source-icon">📋</div>
+                    <div class="source-name">JIRA</div>
+                </div>
+                <div class="source-box">
+                    <div class="source-icon">🐙</div>
+                    <div class="source-name">GitHub</div>
+                </div>
+                <div class="source-box">
+                    <div class="source-icon">🧪</div>
+                    <div class="source-name">TestRail</div>
+                </div>
+                <div class="source-box">
+                    <div class="source-icon">🐄</div>
+                    <div class="source-name">Rancher</div>
+                </div>
+            </div>
+            
+            <div class="connector">
+                <div class="connector-line"></div>
+            </div>
+            
+            <div class="dataflow-backend">
+                <div class="backend-title">⚡ FastAPI Backend</div>
+                <div class="backend-components">
+                    <div class="backend-component">
+                        <div class="component-title">API Clients</div>
+                        <div class="component-items">jenkins_client.py<br>jira_client.py<br>testrail_client.py</div>
+                    </div>
+                    <div class="backend-component">
+                        <div class="component-title">Indexers</div>
+                        <div class="component-items">repo_indexer.py<br>testrail_indexer.py<br>test_code_indexer.py</div>
+                    </div>
+                    <div class="backend-component">
+                        <div class="component-title">Schedulers</div>
+                        <div class="component-items">slack_scheduler.py<br>trend_tracker.py<br>stack_monitoring.py</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector">
+                <div class="connector-line"></div>
+            </div>
+            
+            <div class="dataflow-storage">
+                <div class="storage-box faiss">
+                    <div class="storage-icon">🔍</div>
+                    <div class="storage-title">FAISS</div>
+                    <div class="storage-desc">Vector Indexes</div>
+                </div>
+                <div class="storage-box mongo">
+                    <div class="storage-icon">🍃</div>
+                    <div class="storage-title">MongoDB</div>
+                    <div class="storage-desc">Sessions & State</div>
+                </div>
+                <div class="storage-box file">
+                    <div class="storage-icon">📁</div>
+                    <div class="storage-title">File Cache</div>
+                    <div class="storage-desc">Snapshots & Cache</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Diagram 8: LLM Configuration -->
+    <div class="diagram-container">
+        <h2 class="diagram-title">LLM Configuration</h2>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 25px;">
+            <div style="background: linear-gradient(135deg, #7c3aed, #a78bfa); color: white; padding: 25px 50px; border-radius: 12px; text-align: center;">
+                <div style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">🧠 LiteLLM</div>
+                <div style="font-size: 14px; opacity: 0.9;">Unified LLM Interface</div>
+            </div>
+            
+            <div class="arrow-down"></div>
+            
+            <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
+                <div style="background: linear-gradient(135deg, #059669, #10b981); color: white; padding: 20px; border-radius: 12px; text-align: center; width: 180px;">
+                    <div style="font-size: 28px; margin-bottom: 8px;">🦙</div>
+                    <div style="font-weight: 700;">NS Agent Gateway</div>
+                    <div style="font-size: 12px; opacity: 0.9; margin-top: 5px;">Llama 3.2 11B Vision<br>(Default)</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #1f2937, #374151); color: white; padding: 20px; border-radius: 12px; text-align: center; width: 180px;">
+                    <div style="font-size: 28px; margin-bottom: 8px;">🤖</div>
+                    <div style="font-weight: 700;">OpenAI</div>
+                    <div style="font-size: 12px; opacity: 0.9; margin-top: 5px;">GPT-4 / GPT-4o<br>(Alternative)</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #2563eb, #3b82f6); color: white; padding: 20px; border-radius: 12px; text-align: center; width: 180px;">
+                    <div style="font-size: 28px; margin-bottom: 8px;">💎</div>
+                    <div style="font-weight: 700;">Google Gemini</div>
+                    <div style="font-size: 12px; opacity: 0.9; margin-top: 5px;">Gemini Pro<br>(Alternative)</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #dc2626, #ef4444); color: white; padding: 20px; border-radius: 12px; text-align: center; width: 180px;">
+                    <div style="font-size: 28px; margin-bottom: 8px;">🔶</div>
+                    <div style="font-weight: 700;">Anthropic</div>
+                    <div style="font-size: 12px; opacity: 0.9; margin-top: 5px;">Claude 3<br>(Alternative)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Diagram 9: Key Features Summary -->
+    <div class="diagram-container">
+        <h2 class="diagram-title">Key Features & Capabilities</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto;">
+            <div style="background: linear-gradient(135deg, #3b82f6, #60a5fa); color: white; padding: 25px; border-radius: 12px;">
+                <div style="font-size: 32px; margin-bottom: 10px;">📊</div>
+                <div style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">Release Monitoring</div>
+                <div style="font-size: 14px; opacity: 0.9; line-height: 1.5;">
+                    • Release readiness tracking<br>
+                    • Milestone visualization<br>
+                    • Blocker management<br>
+                    • Calendar integration
+                </div>
+            </div>
+            <div style="background: linear-gradient(135deg, #10b981, #34d399); color: white; padding: 25px; border-radius: 12px;">
+                <div style="font-size: 32px; margin-bottom: 10px;">🔧</div>
+                <div style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">CI/CD Integration</div>
+                <div style="font-size: 14px; opacity: 0.9; line-height: 1.5;">
+                    • Jenkins pipeline status<br>
+                    • Build health monitoring<br>
+                    • Test failure analysis<br>
+                    • Golden regression tracking
+                </div>
+            </div>
+            <div style="background: linear-gradient(135deg, #f59e0b, #fbbf24); color: white; padding: 25px; border-radius: 12px;">
+                <div style="font-size: 32px; margin-bottom: 10px;">🧪</div>
+                <div style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">Test Management</div>
+                <div style="font-size: 14px; opacity: 0.9; line-height: 1.5;">
+                    • TestRail integration<br>
+                    • Automation coverage<br>
+                    • Test health metrics<br>
+                    • Case-to-code mapping
+                </div>
+            </div>
+            <div style="background: linear-gradient(135deg, #8b5cf6, #a78bfa); color: white; padding: 25px; border-radius: 12px;">
+                <div style="font-size: 32px; margin-bottom: 10px;">🤖</div>
+                <div style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">AI Assistant</div>
+                <div style="font-size: 14px; opacity: 0.9; line-height: 1.5;">
+                    • Multi-agent architecture<br>
+                    • RAG-powered search<br>
+                    • Natural language queries<br>
+                    • Context-aware responses
+                </div>
+            </div>
+            <div style="background: linear-gradient(135deg, #ec4899, #f472b6); color: white; padding: 25px; border-radius: 12px;">
+                <div style="font-size: 32px; margin-bottom: 10px;">📈</div>
+                <div style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">Stack Monitoring</div>
+                <div style="font-size: 14px; opacity: 0.9; line-height: 1.5;">
+                    • Kubernetes health<br>
+                    • Rancher integration<br>
+                    • Health score trends<br>
+                    • Real-time alerts
+                </div>
+            </div>
+            <div style="background: linear-gradient(135deg, #6366f1, #818cf8); color: white; padding: 25px; border-radius: 12px;">
+                <div style="font-size: 32px; margin-bottom: 10px;">💬</div>
+                <div style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">Notifications</div>
+                <div style="font-size: 14px; opacity: 0.9; line-height: 1.5;">
+                    • Slack integration<br>
+                    • Scheduled reports<br>
+                    • Signoff workflows<br>
+                    • Alert management
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Diagram 10: Complete Tech Stack List -->
+    <div class="diagram-container">
+        <h2 class="diagram-title">Complete Technology Stack</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px; max-width: 1200px; margin: 0 auto;">
+            
+            <!-- Frontend -->
+            <div style="background: white; border: 2px solid #3b82f6; border-radius: 12px; overflow: hidden;">
+                <div style="background: linear-gradient(135deg, #3b82f6, #60a5fa); color: white; padding: 15px 20px; font-size: 18px; font-weight: 700;">
+                    ⚛️ Frontend
+                </div>
+                <div style="padding: 20px;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr style="border-bottom: 1px solid #e5e7eb;">
+                            <td style="padding: 10px 0; font-weight: 600; color: #374151;">React</td>
+                            <td style="padding: 10px 0; color: #6b7280; text-align: right;">18.2.0</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e5e7eb;">
+                            <td style="padding: 10px 0; font-weight: 600; color: #374151;">React DOM</td>
+                            <td style="padding: 10px 0; color: #6b7280; text-align: right;">18.2.0</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e5e7eb;">
+                            <td style="padding: 10px 0; font-weight: 600; color: #374151;">React Scripts</td>
+                            <td style="padding: 10px 0; color: #6b7280; text-align: right;">5.0.1</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e5e7eb;">
+                            <td style="padding: 10px 0; font-weight: 600; color: #374151;">Recharts</td>
+                            <td style="padding: 10px 0; color: #6b7280; text-align: right;">2.10.3</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e5e7eb;">
+                            <td style="padding: 10px 0; font-weight: 600; color: #374151;">Lucide React</td>
+                            <td style="padding: 10px 0; color: #6b7280; text-align: right;">0.294.0</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px 0; font-weight: 600; color: #374151;">date-fns</td>
+                            <td style="padding: 10px 0; color: #6b7280; text-align: right;">2.30.0</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Backend Core -->
+            <div style="background: white; border: 2px solid #10b981; border-radius: 12px; overflow: hidden;">
+                <div style="background: linear-gradient(135deg, #10b981, #34d399); color: white; padding: 15px 20px; font-size: 18px; font-weight: 700;">
+                    ⚡ Backend Core
+                </div>
+                <div style="padding: 20px;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr style="border-bottom: 1px solid #e5e7eb;">
+                            <td style="padding: 10px 0; font-weight: 600; color: #374151;">FastAPI</td>
+                            <td style="padding: 10px 0; color: #6b7280; text-align: right;">≥0.115.0</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e5e7eb;">
+                            <td style="padding: 10px 0; font-weight: 600; color: #374151;">Uvicorn</td>
+                            <td style="padding: 10px 0; color: #6b7280; text-align: right;">≥0.24.0</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e5e7eb;">
+                            <td style="padding: 10px 0; font-weight: 600; color: #374151;">Pydantic</td>
+                            <td style="padding: 10px 0; color: #6b7280; text-align: right;">≥2.0.0</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e5e7eb;">
+                            <td style="padding: 10px 0; font-weight: 600; color: #374151;">Pydantic Settings</td>
+                            <td style="padding: 10px 0; color: #6b7280; text-align: right;">≥2.1.0</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e5e7eb;">
+                            <td style="padding: 10px 0; font-weight: 600; color: #374151;">httpx</td>
+                            <td style="padding: 10px 0; color: #6b7280; text-align: right;">≥0.28.0</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px 0; font-weight: 600; color: #374151;">aiohttp</td>
+                            <td style="padding: 10px 0; color: #6b7280; text-align: right;">≥3.9.0</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- AI / ML -->
+            <div style="background: white; border: 2px solid #8b5cf6; border-radius: 12px; overflow: hidden;">
+                <div style="background: linear-gradient(135deg, #8b5cf6, #a78bfa); color: white; padding: 15px 20px; font-size: 18px; font-weight: 700;">
+                    🤖 AI / ML
+                </div>
+                <div style="padding: 20px;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr style="border-bottom: 1px solid #e5e7eb;">
+                            <td style="padding: 10px 0; font-weight: 600; color: #374151;">Google ADK</td>
+                            <td style="padding: 10px 0; color: #6b7280; text-align: right;">Agent Framework</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e5e7eb;">
+                            <td style="padding: 10px 0; font-weight: 600; color: #374151;">LiteLLM</td>
+                            <td style="padding: 10px 0; color: #6b7280; text-align: right;">Unified LLM</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e5e7eb;">
+                            <td style="padding: 10px 0; font-weight: 600; color: #374151;">FAISS</td>
+                            <td style="padding: 10px 0; color: #6b7280; text-align: right;">≥1.7.4</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e5e7eb;">
+                            <td style="padding: 10px 0; font-weight: 600; color: #374151;">Streamlit</td>
+                            <td style="padding: 10px 0; color: #6b7280; text-align: right;">≥1.30.0</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e5e7eb;">
+                            <td style="padding: 10px 0; font-weight: 600; color: #374151;">FastMCP</td>
+                            <td style="padding: 10px 0; color: #6b7280; text-align: right;">MCP Protocol</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px 0; font-weight: 600; color: #374151;">TEI Embeddings</td>
+                            <td style="padding: 10px 0; color: #6b7280; text-align: right;">Text Embeddings Inference</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- LLM Providers -->
+            <div style="background: white; border: 2px solid #ec4899; border-radius: 12px; overflow: hidden;">
+                <div style="background: linear-gradient(135deg, #ec4899, #f472b6); color: white; padding: 15px 20px; font-size: 18px; font-weight: 700;">
+                    🧠 LLM Providers
+                </div>
+                <div style="padding: 20px;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr style="border-bottom: 1px solid #e5e7eb;">
+                            <td style="padding: 10px 0; font-weight: 600; color: #374151;">NS Agent Gateway</td>
+                            <td style="padding: 10px 0; color: #6b7280; text-align: right;">Default</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e5e7eb;">
+                            <td style="padding: 10px 0; font-weight: 600; color: #374151;">Llama 3.2 11B Vision</td>
+                            <td style="padding: 10px 0; color: #6b7280; text-align: right;">Primary Model</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e5e7eb;">
+                            <td style="padding: 10px 0; font-weight: 600; color: #374151;">OpenAI GPT-4</td>
+                            <td style="padding: 10px 0; color: #6b7280; text-align: right;">Alternative</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e5e7eb;">
+                            <td style="padding: 10px 0; font-weight: 600; color: #374151;">Google Gemini</td>
+                            <td style="padding: 10px 0; color: #6b7280; text-align: right;">Alternative</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px 0; font-weight: 600; color: #374151;">Anthropic Claude</td>
+                            <td style="padding: 10px 0; color: #6b7280; text-align: right;">Alternative</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Infrastructure -->
+            <div style="background: white; border: 2px solid #f59e0b; border-radius: 12px; overflow: hidden;">
+                <div style="background: linear-gradient(135deg, #f59e0b, #fbbf24); color: white; padding: 15px 20px; font-size: 18px; font-weight: 700;">
+                    🏗️ Infrastructure
+                </div>
+                <div style="padding: 20px;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr style="border-bottom: 1px solid #e5e7eb;">
+                            <td style="padding: 10px 0; font-weight: 600; color: #374151;">Docker</td>
+                            <td style="padding: 10px 0; color: #6b7280; text-align: right;">Containerization</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e5e7eb;">
+                            <td style="padding: 10px 0; font-weight: 600; color: #374151;">Docker Compose</td>
+                            <td style="padding: 10px 0; color: #6b7280; text-align: right;">Orchestration</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e5e7eb;">
+                            <td style="padding: 10px 0; font-weight: 600; color: #374151;">Nginx</td>
+                            <td style="padding: 10px 0; color: #6b7280; text-align: right;">Reverse Proxy</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e5e7eb;">
+                            <td style="padding: 10px 0; font-weight: 600; color: #374151;">Node.js</td>
+                            <td style="padding: 10px 0; color: #6b7280; text-align: right;">18 Alpine</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px 0; font-weight: 600; color: #374151;">Python</td>
+                            <td style="padding: 10px 0; color: #6b7280; text-align: right;">3.11+</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Database & Storage -->
+            <div style="background: white; border: 2px solid #6366f1; border-radius: 12px; overflow: hidden;">
+                <div style="background: linear-gradient(135deg, #6366f1, #818cf8); color: white; padding: 15px 20px; font-size: 18px; font-weight: 700;">
+                    💾 Database & Storage
+                </div>
+                <div style="padding: 20px;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr style="border-bottom: 1px solid #e5e7eb;">
+                            <td style="padding: 10px 0; font-weight: 600; color: #374151;">FAISS</td>
+                            <td style="padding: 10px 0; color: #6b7280; text-align: right;">Vector Store</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e5e7eb;">
+                            <td style="padding: 10px 0; font-weight: 600; color: #374151;">MongoDB</td>
+                            <td style="padding: 10px 0; color: #6b7280; text-align: right;">Sessions</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e5e7eb;">
+                            <td style="padding: 10px 0; font-weight: 600; color: #374151;">File System</td>
+                            <td style="padding: 10px 0; color: #6b7280; text-align: right;">Cache/Snapshots</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px 0; font-weight: 600; color: #374151;">In-Memory</td>
+                            <td style="padding: 10px 0; color: #6b7280; text-align: right;">Fallback</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Diagram 11: External Integrations List -->
+    <div class="diagram-container">
+        <h2 class="diagram-title">External Integrations</h2>
+        <div style="max-width: 1000px; margin: 0 auto;">
+            <table style="width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                <thead>
+                    <tr style="background: linear-gradient(135deg, #1e293b, #334155);">
+                        <th style="padding: 18px 20px; text-align: left; color: white; font-weight: 600;">Service</th>
+                        <th style="padding: 18px 20px; text-align: left; color: white; font-weight: 600;">Type</th>
+                        <th style="padding: 18px 20px; text-align: left; color: white; font-weight: 600;">Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom: 1px solid #e5e7eb;">
+                        <td style="padding: 15px 20px;">
+                            <span style="display: inline-flex; align-items: center; gap: 10px;">
+                                <span style="font-size: 24px;">🔧</span>
+                                <span style="font-weight: 600; color: #374151;">Jenkins</span>
+                            </span>
+                        </td>
+                        <td style="padding: 15px 20px; color: #6b7280;">REST API</td>
+                        <td style="padding: 15px 20px; color: #6b7280;">Pipeline monitoring, TFA, Golden regression, PDV, MPAS</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e5e7eb; background: #f9fafb;">
+                        <td style="padding: 15px 20px;">
+                            <span style="display: inline-flex; align-items: center; gap: 10px;">
+                                <span style="font-size: 24px;">📋</span>
+                                <span style="font-weight: 600; color: #374151;">JIRA</span>
+                            </span>
+                        </td>
+                        <td style="padding: 15px 20px; color: #6b7280;">REST API</td>
+                        <td style="padding: 15px 20px; color: #6b7280;">Release readiness, Milestones, Blockers, Issue tracking</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e5e7eb;">
+                        <td style="padding: 15px 20px;">
+                            <span style="display: inline-flex; align-items: center; gap: 10px;">
+                                <span style="font-size: 24px;">🐙</span>
+                                <span style="font-weight: 600; color: #374151;">GitHub</span>
+                            </span>
+                        </td>
+                        <td style="padding: 15px 20px; color: #6b7280;">REST API</td>
+                        <td style="padding: 15px 20px; color: #6b7280;">Commits, PRs, Environment configs, Repo indexing</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e5e7eb; background: #f9fafb;">
+                        <td style="padding: 15px 20px;">
+                            <span style="display: inline-flex; align-items: center; gap: 10px;">
+                                <span style="font-size: 24px;">💬</span>
+                                <span style="font-weight: 600; color: #374151;">Slack</span>
+                            </span>
+                        </td>
+                        <td style="padding: 15px 20px; color: #6b7280;">SDK</td>
+                        <td style="padding: 15px 20px; color: #6b7280;">Notifications, Signoffs, Alerts, Scheduled reports</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e5e7eb;">
+                        <td style="padding: 15px 20px;">
+                            <span style="display: inline-flex; align-items: center; gap: 10px;">
+                                <span style="font-size: 24px;">🧪</span>
+                                <span style="font-weight: 600; color: #374151;">TestRail</span>
+                            </span>
+                        </td>
+                        <td style="padding: 15px 20px; color: #6b7280;">REST API</td>
+                        <td style="padding: 15px 20px; color: #6b7280;">Test cases, Test runs, Automation coverage</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e5e7eb; background: #f9fafb;">
+                        <td style="padding: 15px 20px;">
+                            <span style="display: inline-flex; align-items: center; gap: 10px;">
+                                <span style="font-size: 24px;">🐄</span>
+                                <span style="font-weight: 600; color: #374151;">Rancher</span>
+                            </span>
+                        </td>
+                        <td style="padding: 15px 20px; color: #6b7280;">API</td>
+                        <td style="padding: 15px 20px; color: #6b7280;">Kubeconfigs, Kubernetes cluster monitoring</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e5e7eb;">
+                        <td style="padding: 15px 20px;">
+                            <span style="display: inline-flex; align-items: center; gap: 10px;">
+                                <span style="font-size: 24px;">📊</span>
+                                <span style="font-weight: 600; color: #374151;">Google Sheets</span>
+                            </span>
+                        </td>
+                        <td style="padding: 15px 20px; color: #6b7280;">API</td>
+                        <td style="padding: 15px 20px; color: #6b7280;">Weekly status, NPLANs, Data exports</td>
+                    </tr>
+                    <tr style="background: #f9fafb;">
+                        <td style="padding: 15px 20px;">
+                            <span style="display: inline-flex; align-items: center; gap: 10px;">
+                                <span style="font-size: 24px;">📅</span>
+                                <span style="font-weight: 600; color: #374151;">Release Calendar</span>
+                            </span>
+                        </td>
+                        <td style="padding: 15px 20px; color: #6b7280;">PDF Parsing</td>
+                        <td style="padding: 15px 20px; color: #6b7280;">Milestone dates, Release schedules (PyMuPDF)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Diagram 12: Backend Libraries -->
+    <div class="diagram-container">
+        <h2 class="diagram-title">Backend Python Libraries</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto;">
+            
+            <div style="background: linear-gradient(135deg, #0ea5e9, #38bdf8); color: white; padding: 25px; border-radius: 12px;">
+                <div style="font-size: 18px; font-weight: 700; margin-bottom: 15px;">🌐 HTTP & Async</div>
+                <div style="font-size: 14px; line-height: 2;">
+                    <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 5px; margin-bottom: 5px;">
+                        <span>httpx</span><span style="opacity: 0.8;">≥0.28.0</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 5px; margin-bottom: 5px;">
+                        <span>aiohttp</span><span style="opacity: 0.8;">≥3.9.0</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>requests</span><span style="opacity: 0.8;">HTTP client</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #22c55e, #4ade80); color: white; padding: 25px; border-radius: 12px;">
+                <div style="font-size: 18px; font-weight: 700; margin-bottom: 15px;">🔧 Utilities</div>
+                <div style="font-size: 14px; line-height: 2;">
+                    <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 5px; margin-bottom: 5px;">
+                        <span>python-dotenv</span><span style="opacity: 0.8;">≥1.0.0</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 5px; margin-bottom: 5px;">
+                        <span>PyYAML</span><span style="opacity: 0.8;">≥6.0.0</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>PyMuPDF</span><span style="opacity: 0.8;">≥1.24.0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #f97316, #fb923c); color: white; padding: 25px; border-radius: 12px;">
+                <div style="font-size: 18px; font-weight: 700; margin-bottom: 15px;">☁️ Cloud & K8s</div>
+                <div style="font-size: 14px; line-height: 2;">
+                    <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 5px; margin-bottom: 5px;">
+                        <span>kubernetes</span><span style="opacity: 0.8;">≥28.1.0</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 5px; margin-bottom: 5px;">
+                        <span>google-api-python-client</span><span style="opacity: 0.8;">≥2.100.0</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>slack-sdk</span><span style="opacity: 0.8;">≥3.27.0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #a855f7, #c084fc); color: white; padding: 25px; border-radius: 12px;">
+                <div style="font-size: 18px; font-weight: 700; margin-bottom: 15px;">🗄️ Database</div>
+                <div style="font-size: 14px; line-height: 2;">
+                    <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 5px; margin-bottom: 5px;">
+                        <span>motor</span><span style="opacity: 0.8;">Async MongoDB</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 5px; margin-bottom: 5px;">
+                        <span>pymongo</span><span style="opacity: 0.8;">MongoDB Driver</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>faiss-cpu</span><span style="opacity: 0.8;">≥1.7.4</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Diagram 13: MCP Servers List -->
+    <div class="diagram-container">
+        <h2 class="diagram-title">MCP (Model Context Protocol) Servers</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto;">
+            
+            <div style="background: white; border-left: 5px solid #ef4444; padding: 20px 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.08);">
+                <div style="font-size: 18px; font-weight: 700; color: #374151; margin-bottom: 8px;">🔧 jenkins-mcp-server</div>
+                <div style="font-size: 14px; color: #6b7280;">Pipeline status, Build info, TFA data</div>
+            </div>
+
+            <div style="background: white; border-left: 5px solid #3b82f6; padding: 20px 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.08);">
+                <div style="font-size: 18px; font-weight: 700; color: #374151; margin-bottom: 8px;">📋 jira-mcp-server</div>
+                <div style="font-size: 14px; color: #6b7280;">Issues, Milestones, Release tracking</div>
+            </div>
+
+            <div style="background: white; border-left: 5px solid #1f2937; padding: 20px 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.08);">
+                <div style="font-size: 18px; font-weight: 700; color: #374151; margin-bottom: 8px;">🐙 github-mcp-server</div>
+                <div style="font-size: 14px; color: #6b7280;">Commits, PRs, Code search</div>
+            </div>
+
+            <div style="background: white; border-left: 5px solid #10b981; padding: 20px 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.08);">
+                <div style="font-size: 18px; font-weight: 700; color: #374151; margin-bottom: 8px;">🧪 testrail-mcp-server</div>
+                <div style="font-size: 14px; color: #6b7280;">Test cases, Runs, Coverage</div>
+            </div>
+
+            <div style="background: white; border-left: 5px solid #22c55e; padding: 20px 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.08);">
+                <div style="font-size: 18px; font-weight: 700; color: #374151; margin-bottom: 8px;">📊 gsheets-mcp-server</div>
+                <div style="font-size: 14px; color: #6b7280;">Spreadsheet data, NPLANs</div>
+            </div>
+
+            <div style="background: white; border-left: 5px solid #f59e0b; padding: 20px 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.08);">
+                <div style="font-size: 18px; font-weight: 700; color: #374151; margin-bottom: 8px;">📅 release-calendar-mcp-server</div>
+                <div style="font-size: 14px; color: #6b7280;">Release dates, Milestones</div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Diagram 14: Copy-Paste Tech Stack Tables -->
+    <div class="diagram-container">
+        <h2 class="diagram-title">Tech Stack Tables (Copy-Paste Ready)</h2>
+        
+        <div style="max-width: 900px; margin: 0 auto;">
+            
+            <!-- Frontend Table -->
+            <h3 style="font-size: 20px; font-weight: 700; color: #3b82f6; margin: 30px 0 15px 0; border-left: 4px solid #3b82f6; padding-left: 12px;">Frontend</h3>
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px; font-family: Arial, sans-serif;">
+                <thead>
+                    <tr style="background: #f1f5f9;">
+                        <th style="border: 1px solid #cbd5e1; padding: 12px; text-align: left;">Technology</th>
+                        <th style="border: 1px solid #cbd5e1; padding: 12px; text-align: left;">Version</th>
+                        <th style="border: 1px solid #cbd5e1; padding: 12px; text-align: left;">Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">React</td><td style="border: 1px solid #cbd5e1; padding: 10px;">18.2.0</td><td style="border: 1px solid #cbd5e1; padding: 10px;">UI Framework</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">React DOM</td><td style="border: 1px solid #cbd5e1; padding: 10px;">18.2.0</td><td style="border: 1px solid #cbd5e1; padding: 10px;">DOM Rendering</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">React Scripts</td><td style="border: 1px solid #cbd5e1; padding: 10px;">5.0.1</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Build Tooling (CRA)</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">Recharts</td><td style="border: 1px solid #cbd5e1; padding: 10px;">2.10.3</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Charts & Graphs</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">Lucide React</td><td style="border: 1px solid #cbd5e1; padding: 10px;">0.294.0</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Icon Library</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">date-fns</td><td style="border: 1px solid #cbd5e1; padding: 10px;">2.30.0</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Date Utilities</td></tr>
+                </tbody>
+            </table>
+
+            <!-- Backend Table -->
+            <h3 style="font-size: 20px; font-weight: 700; color: #10b981; margin: 30px 0 15px 0; border-left: 4px solid #10b981; padding-left: 12px;">Backend</h3>
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px; font-family: Arial, sans-serif;">
+                <thead>
+                    <tr style="background: #f1f5f9;">
+                        <th style="border: 1px solid #cbd5e1; padding: 12px; text-align: left;">Technology</th>
+                        <th style="border: 1px solid #cbd5e1; padding: 12px; text-align: left;">Version</th>
+                        <th style="border: 1px solid #cbd5e1; padding: 12px; text-align: left;">Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">FastAPI</td><td style="border: 1px solid #cbd5e1; padding: 10px;">≥0.115.0</td><td style="border: 1px solid #cbd5e1; padding: 10px;">REST API Framework</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">Uvicorn</td><td style="border: 1px solid #cbd5e1; padding: 10px;">≥0.24.0</td><td style="border: 1px solid #cbd5e1; padding: 10px;">ASGI Server</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">Pydantic</td><td style="border: 1px solid #cbd5e1; padding: 10px;">≥2.0.0</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Data Validation</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">Pydantic Settings</td><td style="border: 1px solid #cbd5e1; padding: 10px;">≥2.1.0</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Configuration Management</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">httpx</td><td style="border: 1px solid #cbd5e1; padding: 10px;">≥0.28.0</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Async HTTP Client</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">aiohttp</td><td style="border: 1px solid #cbd5e1; padding: 10px;">≥3.9.0</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Async HTTP Client</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">python-dotenv</td><td style="border: 1px solid #cbd5e1; padding: 10px;">≥1.0.0</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Environment Variables</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">PyYAML</td><td style="border: 1px solid #cbd5e1; padding: 10px;">≥6.0.0</td><td style="border: 1px solid #cbd5e1; padding: 10px;">YAML Parsing</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">PyMuPDF</td><td style="border: 1px solid #cbd5e1; padding: 10px;">≥1.24.0</td><td style="border: 1px solid #cbd5e1; padding: 10px;">PDF Parsing</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">slack-sdk</td><td style="border: 1px solid #cbd5e1; padding: 10px;">≥3.27.0</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Slack API Integration</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">kubernetes</td><td style="border: 1px solid #cbd5e1; padding: 10px;">≥28.1.0</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Kubernetes API Client</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">google-api-python-client</td><td style="border: 1px solid #cbd5e1; padding: 10px;">≥2.100.0</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Google Sheets API</td></tr>
+                </tbody>
+            </table>
+
+            <!-- AI/ML Table -->
+            <h3 style="font-size: 20px; font-weight: 700; color: #8b5cf6; margin: 30px 0 15px 0; border-left: 4px solid #8b5cf6; padding-left: 12px;">AI / ML</h3>
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px; font-family: Arial, sans-serif;">
+                <thead>
+                    <tr style="background: #f1f5f9;">
+                        <th style="border: 1px solid #cbd5e1; padding: 12px; text-align: left;">Technology</th>
+                        <th style="border: 1px solid #cbd5e1; padding: 12px; text-align: left;">Version</th>
+                        <th style="border: 1px solid #cbd5e1; padding: 12px; text-align: left;">Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">Google ADK</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Latest</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Agent Development Kit</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">LiteLLM</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Latest</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Unified LLM Interface</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">FAISS</td><td style="border: 1px solid #cbd5e1; padding: 10px;">≥1.7.4</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Vector Similarity Search</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">Streamlit</td><td style="border: 1px solid #cbd5e1; padding: 10px;">≥1.30.0</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Chat UI Framework</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">FastMCP</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Latest</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Model Context Protocol</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">TEI (HuggingFace)</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Latest</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Text Embeddings Inference via NSAgent</td></tr>
+                </tbody>
+            </table>
+
+            <!-- LLM Providers Table -->
+            <h3 style="font-size: 20px; font-weight: 700; color: #ec4899; margin: 30px 0 15px 0; border-left: 4px solid #ec4899; padding-left: 12px;">LLM Providers</h3>
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px; font-family: Arial, sans-serif;">
+                <thead>
+                    <tr style="background: #f1f5f9;">
+                        <th style="border: 1px solid #cbd5e1; padding: 12px; text-align: left;">Provider</th>
+                        <th style="border: 1px solid #cbd5e1; padding: 12px; text-align: left;">Model</th>
+                        <th style="border: 1px solid #cbd5e1; padding: 12px; text-align: left;">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">NS Agent Gateway</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Llama 3.2 11B Vision</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Default</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">OpenAI</td><td style="border: 1px solid #cbd5e1; padding: 10px;">GPT-4 / GPT-4o</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Alternative</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">Google</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Gemini Pro</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Alternative</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">Anthropic</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Claude 3</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Alternative</td></tr>
+                </tbody>
+            </table>
+
+            <!-- Infrastructure Table -->
+            <h3 style="font-size: 20px; font-weight: 700; color: #f59e0b; margin: 30px 0 15px 0; border-left: 4px solid #f59e0b; padding-left: 12px;">Infrastructure</h3>
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px; font-family: Arial, sans-serif;">
+                <thead>
+                    <tr style="background: #f1f5f9;">
+                        <th style="border: 1px solid #cbd5e1; padding: 12px; text-align: left;">Technology</th>
+                        <th style="border: 1px solid #cbd5e1; padding: 12px; text-align: left;">Version</th>
+                        <th style="border: 1px solid #cbd5e1; padding: 12px; text-align: left;">Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">Docker</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Latest</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Containerization</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">Docker Compose</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Latest</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Container Orchestration</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">Nginx</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Alpine</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Reverse Proxy & Static Serving</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">Node.js</td><td style="border: 1px solid #cbd5e1; padding: 10px;">18 Alpine</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Frontend Build</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">Python</td><td style="border: 1px solid #cbd5e1; padding: 10px;">3.11+</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Backend Runtime</td></tr>
+                </tbody>
+            </table>
+
+            <!-- Database & Storage Table -->
+            <h3 style="font-size: 20px; font-weight: 700; color: #6366f1; margin: 30px 0 15px 0; border-left: 4px solid #6366f1; padding-left: 12px;">Database & Storage</h3>
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px; font-family: Arial, sans-serif;">
+                <thead>
+                    <tr style="background: #f1f5f9;">
+                        <th style="border: 1px solid #cbd5e1; padding: 12px; text-align: left;">Technology</th>
+                        <th style="border: 1px solid #cbd5e1; padding: 12px; text-align: left;">Type</th>
+                        <th style="border: 1px solid #cbd5e1; padding: 12px; text-align: left;">Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">FAISS</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Vector Store</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Code & Test Case Indexing</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">MongoDB</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Document DB</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Session & State Storage</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">File System</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Local Volume</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Cache & Snapshots</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">In-Memory</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Fallback</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Session Fallback (no MongoDB)</td></tr>
+                </tbody>
+            </table>
+
+            <!-- External Integrations Table -->
+            <h3 style="font-size: 20px; font-weight: 700; color: #475569; margin: 30px 0 15px 0; border-left: 4px solid #475569; padding-left: 12px;">External Integrations</h3>
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px; font-family: Arial, sans-serif;">
+                <thead>
+                    <tr style="background: #f1f5f9;">
+                        <th style="border: 1px solid #cbd5e1; padding: 12px; text-align: left;">Service</th>
+                        <th style="border: 1px solid #cbd5e1; padding: 12px; text-align: left;">Integration Type</th>
+                        <th style="border: 1px solid #cbd5e1; padding: 12px; text-align: left;">Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">Jenkins</td><td style="border: 1px solid #cbd5e1; padding: 10px;">REST API</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Pipeline monitoring, TFA, Golden regression</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">JIRA</td><td style="border: 1px solid #cbd5e1; padding: 10px;">REST API</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Release readiness, Milestones, Blockers</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">GitHub</td><td style="border: 1px solid #cbd5e1; padding: 10px;">REST API</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Commits, PRs, Environment configs</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">Slack</td><td style="border: 1px solid #cbd5e1; padding: 10px;">SDK</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Notifications, Signoffs, Alerts</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">TestRail</td><td style="border: 1px solid #cbd5e1; padding: 10px;">REST API</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Test cases, Runs, Coverage</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">Rancher</td><td style="border: 1px solid #cbd5e1; padding: 10px;">API</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Kubeconfigs, K8s monitoring</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">Google Sheets</td><td style="border: 1px solid #cbd5e1; padding: 10px;">API</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Weekly status, NPLANs</td></tr>
+                    <tr><td style="border: 1px solid #cbd5e1; padding: 10px;">Release Calendar</td><td style="border: 1px solid #cbd5e1; padding: 10px;">PDF Parsing</td><td style="border: 1px solid #cbd5e1; padding: 10px;">Milestone dates, Schedules</td></tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</body>
+</html>
