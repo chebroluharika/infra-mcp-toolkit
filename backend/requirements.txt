@@ -1,0 +1,62 @@
+# FastAPI and Server
+fastapi>=0.115.0
+uvicorn[standard]>=0.24.0
+python-multipart>=0.0.6
+
+# HTTP Client (async, modern)
+httpx>=0.28.0
+aiohttp>=3.9.0
+
+# Environment and Config
+python-dotenv>=1.0.0
+pydantic-settings>=2.1.0
+pydantic>=2.0.0
+
+# Date handling
+python-dateutil>=2.8.2
+pytz>=2024.1
+
+# Task scheduling for periodic jobs (e.g., Google Calendar sync)
+apscheduler>=3.10.0
+
+# YAML parsing
+pyyaml>=6.0.0
+
+# Slack Integration for notifications
+slack_sdk>=3.27.0
+certifi>=2023.0.0
+
+# WebSocket client for Chrome DevTools Protocol (PDV token extraction)
+websocket-client>=1.6.0
+
+# Kubernetes client for stack monitoring
+kubernetes>=28.1.0
+urllib3>=2.0.0
+
+# Optional: internal Vault client (pylclient) — not on public PyPI.
+# Rancher/Vault token features are disabled without it; provide kubeconfigs
+# manually via RANCHER_NPE_KEY / RANCHER_PROD_KEY env vars.
+# pylclient>=2.8.0
+
+# PDF parsing for release calendar
+# PyMuPDF (fitz) for text extraction from PDF
+pymupdf>=1.24.0
+
+# Commit analysis uses DeepSeek via Ollama (local)
+# Setup: ollama pull deepseek-coder-v2:16b
+
+# Google Sheets API
+google-api-python-client>=2.100.0
+google-auth-httplib2>=0.1.1
+google-auth>=2.23.0
+
+# AI Agent Integration (FAISS indexing, ADK agents for escalation analysis)
+# These are needed by backend/services/{repo_indexer,testrail_indexer} and
+# backend/routers/{index,ai_chat} which import from ai_agents/core/
+faiss-cpu>=1.7.4
+# sentence-transformers>=2.2.0  # Only needed if EMBEDDING_BASE_URL is not configured
+numpy>=1.24.0
+google-adk[mcp]>=0.5.0
+litellm>=1.84.0  # CVE-2026-47101/47102 (priv esc, CVSS 8.8) + Jinja2 SSTI RCE chain — min safe version 1.84.0
+mcp>=1.0.0
+nest-asyncio>=1.5.0

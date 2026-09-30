@@ -1,0 +1,187 @@
+{
+  "base_url": "https://docs.your-company.com/en/your-company-client",
+  "scraped_at": "2026-02-01T09:12:31.806839",
+  "total_pages": 30,
+  "pages": [
+    {
+      "url": "https://docs.your-company.com/en/your-company-client",
+      "title": "YourCompany Client - YourCompany Knowledge Portal",
+      "content_hash": "c66e1ae6091d10e9fad789fde2b1cab9",
+      "headings_count": 1
+    },
+    {
+      "url": "https://docs.your-company.com/en/ai-security",
+      "title": "AI Security - YourCompany Knowledge Portal",
+      "content_hash": "16fcde861709ed1803dc93cbde8f26f3",
+      "headings_count": 6
+    },
+    {
+      "url": "https://docs.your-company.com/en/ios-vpn-fail-open",
+      "title": "iOS VPN Fail Open - YourCompany Knowledge Portal",
+      "content_hash": "7a4d2bd73b15a2c7dabfe5b8c63dcd54",
+      "headings_count": 1
+    },
+    {
+      "url": "https://docs.your-company.com/en/your-company-client-deployment-options",
+      "title": "YourCompany Client Deployment Options - YourCompany Knowledge Portal",
+      "content_hash": "89cc9ab1ca53e40dc439815a220d4861",
+      "headings_count": 3
+    },
+    {
+      "url": "https://docs.your-company.com/en/your-company-client-command-reference",
+      "title": "YourCompany Client Command Reference - YourCompany Knowledge Portal",
+      "content_hash": "6f67571ea065d3d708588264fc4fe1bf",
+      "headings_count": 2
+    },
+    {
+      "url": "https://docs.your-company.com/en/your-company-client-overview",
+      "title": "YourCompany Client Overview - YourCompany Knowledge Portal",
+      "content_hash": "a46ad9749c2bd134c4989d8c330761cf",
+      "headings_count": 8
+    },
+    {
+      "url": "https://docs.your-company.com/en/using-your-company-client",
+      "title": "Using YourCompany Client - YourCompany Knowledge Portal",
+      "content_hash": "2a81fa8a6ced2de6007c490075a99869",
+      "headings_count": 20
+    },
+    {
+      "url": "https://docs.your-company.com/en/client-profiles",
+      "title": "Client Profiles - YourCompany Knowledge Portal",
+      "content_hash": "674c3136b792fd321030029af9fc2a69",
+      "headings_count": 1
+    },
+    {
+      "url": "https://docs.your-company.com/en/your-company-client-resource-utilization",
+      "title": "YourCompany Client Resource Utilization - YourCompany Knowledge Portal",
+      "content_hash": "904fa0cafed6613d01c9b68c433d582d",
+      "headings_count": 1
+    },
+    {
+      "url": "https://docs.your-company.com/en/your-company-client-network-configuration",
+      "title": "YourCompany Client Network Configuration - YourCompany Knowledge Portal",
+      "content_hash": "50e77a3ecf87c8dac96086b736504f0d",
+      "headings_count": 15
+    },
+    {
+      "url": "https://docs.your-company.com/en/your-company-client-hardening",
+      "title": "YourCompany Client Hardening - YourCompany Knowledge Portal",
+      "content_hash": "06b0fd5ab84355561d75a971bf95f020",
+      "headings_count": 5
+    },
+    {
+      "url": "https://docs.your-company.com/en/uninstalling-the-your-company-client",
+      "title": "Uninstalling the YourCompany Client - YourCompany Knowledge Portal",
+      "content_hash": "f5cfd892b49310b5daafbc2f89bc8254",
+      "headings_count": 15
+    },
+    {
+      "url": "https://docs.your-company.com/en/your-company-client-troubleshooting-guide",
+      "title": "YourCompany Client Troubleshooting Guide - YourCompany Knowledge Portal",
+      "content_hash": "a2ae6d57c16e76ddbfa98ca4e4d83e40",
+      "headings_count": 23
+    },
+    {
+      "url": "https://docs.your-company.com/en/your-company-client-configuration",
+      "title": "YourCompany Client Configuration - YourCompany Knowledge Portal",
+      "content_hash": "b2a5d432cf6d9a944a00d71f27cb5c4c",
+      "headings_count": 9
+    },
+    {
+      "url": "https://docs.your-company.com/en/device-classification-430812",
+      "title": "Device Classification - YourCompany Knowledge Portal",
+      "content_hash": "b607510c78c4211a6f40c18a63836730",
+      "headings_count": 6
+    },
+    {
+      "url": "https://docs.your-company.com/en/your-company-client-interoperability",
+      "title": "YourCompany Client Interoperability - YourCompany Knowledge Portal",
+      "content_hash": "f296e0d25a39387b64d79ffdde18d802",
+      "headings_count": 7
+    },
+    {
+      "url": "https://docs.your-company.com/en/your-company-client-golden-release-updates",
+      "title": "YourCompany Client Golden Release Updates - YourCompany Knowledge Portal",
+      "content_hash": "57c9e1ff8d563fd9bc93c07390f1dd83",
+      "headings_count": 1
+    },
+    {
+      "url": "https://docs.your-company.com/en/provisioning-users-for-your-company-client",
+      "title": "Provisioning Users for YourCompany Client - YourCompany Knowledge Portal",
+      "content_hash": "69389793e7c1e0501d37b1d006b0eec2",
+      "headings_count": 1
+    },
+    {
+      "url": "https://docs.your-company.com/en/your-company-client-enforcement",
+      "title": "YourCompany Client Enforcement - YourCompany Knowledge Portal",
+      "content_hash": "353c078335196e060598250070d4988d",
+      "headings_count": 1
+    },
+    {
+      "url": "https://docs.your-company.com/en/data-center-pinning-in-your-company-client",
+      "title": "Data Center Pinning In YourCompany Client - YourCompany Knowledge Portal",
+      "content_hash": "e1d21f08abe2cbb1f725408df1b2d898",
+      "headings_count": 4
+    },
+    {
+      "url": "https://docs.your-company.com/en/your-company-client-supported-os-and-platform",
+      "title": "YourCompany Client Supported OS and Platform - YourCompany Knowledge Portal",
+      "content_hash": "751d3a19d9f25b080cdc181c4e60ee14",
+      "headings_count": 1
+    },
+    {
+      "url": "https://docs.your-company.com/en/your-company-client-debug-mode",
+      "title": "YourCompany Client Debug Mode - YourCompany Knowledge Portal",
+      "content_hash": "c75b68ff35ce83dc2d8e9787c01993be",
+      "headings_count": 13
+    },
+    {
+      "url": "https://docs.your-company.com/en/deprovisioning-users",
+      "title": "Deprovisioning Users - YourCompany Knowledge Portal",
+      "content_hash": "09acf48389e6efb4e07255b1b33b30f3",
+      "headings_count": 2
+    },
+    {
+      "url": "https://docs.your-company.com/en/ai-red-teaming",
+      "title": "AI Red Teaming - YourCompany Knowledge Portal",
+      "content_hash": "02fe40e3b6c56b0952db318fc19c50a1",
+      "headings_count": 2
+    },
+    {
+      "url": "https://docs.your-company.com/en/ai-security-guardrails",
+      "title": "AI Security Guardrails - YourCompany Knowledge Portal",
+      "content_hash": "15d6a34e39424393064fc7569c1aaf9c",
+      "headings_count": 1
+    },
+    {
+      "url": "https://docs.your-company.com/en/ai-gateway",
+      "title": "AI Gateway - YourCompany Knowledge Portal",
+      "content_hash": "b0443e7967300a55a918424c65c56ca4",
+      "headings_count": 3
+    },
+    {
+      "url": "https://docs.your-company.com/en/your-company-client-for-android-and-chromeos",
+      "title": "YourCompany Client For Android and ChromeOS - YourCompany Knowledge Portal",
+      "content_hash": "abbae3354e2f25a9e2945f88289cf10c",
+      "headings_count": 12
+    },
+    {
+      "url": "https://docs.your-company.com/en/omnissa-horizon",
+      "title": "Omnissa Horizon - YourCompany Knowledge Portal",
+      "content_hash": "6625d0f2512b7ef3f6e9fe38745b8867",
+      "headings_count": 3
+    },
+    {
+      "url": "https://docs.your-company.com/en/mobileiron-core",
+      "title": "MobileIron Core - YourCompany Knowledge Portal",
+      "content_hash": "9a016627d2cf0e475e97712ae2b31708",
+      "headings_count": 10
+    },
+    {
+      "url": "https://docs.your-company.com/en/troubleshooting-guide-for-ios-your-company-client-app",
+      "title": "Troubleshooting Guide for iOS YourCompany Client App - YourCompany Knowledge Portal",
+      "content_hash": "887f0986b55586bca5a6ac988b92e362",
+      "headings_count": 5
+    }
+  ]
+}

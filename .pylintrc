@@ -1,0 +1,42 @@
+[MAIN]
+py-version=3.10
+jobs=1
+recursive=yes
+
+[MESSAGES CONTROL]
+# Disable only genuine false positives and intentional patterns
+disable=
+    import-error,  # E0401: Packages not installed in pylint env
+    no-name-in-module,  # E0611: google.adk not installed
+    no-member,  # E1101: Dynamic Google API clients
+    duplicate-code,  # R0801: Intentional similarity in MCP servers
+    import-outside-toplevel,  # C0415: Intentional lazy loading
+    wrong-import-order,  # C0411: Handled by isort
+    wrong-import-position,  # C0413: Intentional for sys.path manipulation
+    global-statement,  # W0603: Intentional for singletons/caching
+    too-many-locals,  # R0914: Complex functions require many locals
+    pointless-string-statement,  # W0105: Used for inline documentation
+    protected-access  # W0212: Intentional access to internal APIs
+
+[FORMAT]
+max-line-length=120
+
+[DESIGN]
+max-args=10
+max-locals=30
+max-branches=20
+max-returns=15
+max-statements=100
+min-public-methods=0
+
+[BASIC]
+good-names=i,j,k,n,x,y,id,db,ok,ex,fd,_,f,p,c,m,e,err,ms,rc,ts,dt,af
+# Allow UPPER_CASE for local constants
+const-rgx=[A-Za-z_][A-Za-z0-9_]*$
+variable-rgx=[a-z_][a-z0-9_]*$|[A-Z_][A-Z0-9_]*$
+
+[TYPECHECK]
+ignored-modules=httpx,mcp,mcp.server.fastmcp,pydantic,pydantic_settings,streamlit,google.adk,googleapiclient
+
+[EXCEPTIONS]
+overgeneral-exceptions=builtins.BaseException

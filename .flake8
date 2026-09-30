@@ -1,0 +1,19 @@
+[flake8]
+max-line-length = 120
+# E203, W503: Conflicts with Black formatting
+# E501: Black handles line length; some strings can't be broken
+# E402: Module imports after sys.path manipulation are intentional
+extend-ignore = E203, W503, E501, E402
+exclude =
+    .git,
+    __pycache__,
+    .venv,
+    venv,
+    node_modules,
+    build,
+    dist
+per-file-ignores =
+    # Allow unused imports in try/except blocks for optional dependencies
+    ai_agents/core/mongodb_session.py: F401
+    ai_agents/jenkins_agent/tools/mcp_tools.py: F401
+    ai_agents/release_readiness_agent/tools/mcp_tools.py: F401

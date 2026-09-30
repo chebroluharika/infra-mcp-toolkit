@@ -1,0 +1,229 @@
+/* CSS Variables - Premium Light Theme (Unified with ReleaseReadinessSection) */
+:root {
+  /* ============================================
+     COLOR PALETTE - Premium Light Theme
+     ============================================ */
+  
+  /* Background Colors - Warm, Clean Tones */
+  --bg-page: #f8f7f4;
+  --bg-primary: #f8f7f4;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f3f2ef;
+  --bg-card: #ffffff;
+  --bg-card-hover: #faf9f7;
+  --bg-subtle: #faf9f7;
+  --bg-muted: #f3f2ef;
+  --bg-hover: #f3f2ef;
+  
+  /* Text Colors - Rich, Readable Contrast */
+  --text-dark: #1a1a1a;
+  --text-primary: #2d2d2d;
+  --text-secondary: #5a5a5a;
+  --text-muted: #8a8a8a;
+  
+  /* Brand Accent Colors */
+  --brand-accent: #d4552a;
+  --brand-accent-light: #fef6f3;
+  --brand-accent-hover: #c04a24;
+  --brand-teal: #d4552a;
+  --brand-orange: #e08d30;
+  --brand-navy: #1a3a5c;
+  --brand-white: #ffffff;
+  
+  /* Accent Colors - Professional Palette */
+  --accent-primary: #d4552a;
+  --accent-secondary: #e08d30;
+  --accent-cyan: #3b7dd8;
+  --accent-orange: #e08d30;
+  --accent-green: #1d9a6c;
+  --accent-red: #c93d3d;
+  --accent-yellow: #e08d30;
+  --accent-purple: #7c5cdb;
+  --accent-blue: #3b7dd8;
+  
+  /* Status Colors */
+  --success: #1d9a6c;
+  --success-light: #e8f5f0;
+  --warning: #e08d30;
+  --warning-light: #fef8f0;
+  --danger: #c93d3d;
+  --danger-light: #fdf3f3;
+  --info: #3b7dd8;
+  --info-light: #f0f6fe;
+  
+  /* Status Aliases */
+  --status-passed: #1d9a6c;
+  --status-failed: #c93d3d;
+  --status-blocked: #e08d30;
+  --status-pending: #8a8a8a;
+  
+  /* Border Colors */
+  --border-color: #e5e3df;
+  --border-light: #f0eeea;
+  --border-highlight: #d4552a;
+  --border-glow: rgba(212, 85, 42, 0.3);
+  
+  /* Shadows - Subtle & Professional */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.1);
+  --shadow-glow: 0 0 20px rgba(212, 85, 42, 0.15);
+  --shadow-accent: 0 0 30px rgba(212, 85, 42, 0.2);
+  
+  /* ============================================
+     TYPOGRAPHY - Professional Fonts
+     ============================================ */
+  --font-display: 'DM Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+  
+  /* ============================================
+     SPACING & SIZING
+     ============================================ */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  
+  --sidebar-width: 280px;
+  --header-height: 60px;
+  --chat-width: 450px;
+}
+
+/* ============================================
+   BASE RESET & GLOBAL STYLES
+   ============================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-page);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.5;
+}
+
+/* Remove dark gradient overlay - use clean light background */
+body::before {
+  display: none;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================
+   TYPOGRAPHY HIERARCHY
+   ============================================ */
+h1 {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text-dark);
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+h2 {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-dark);
+  letter-spacing: -0.3px;
+}
+
+h3 {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-dark);
+  letter-spacing: -0.2px;
+}
+
+h4 {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ============================================
+   LINK STYLES
+   ============================================ */
+a {
+  color: var(--accent-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--brand-accent-hover);
+}
+
+/* ============================================
+   SELECTION STYLES
+   ============================================ */
+::selection {
+  background: rgba(212, 85, 42, 0.2);
+  color: var(--text-dark);
+}
+
+/* ============================================
+   FOCUS STYLES - Accessibility
+   ============================================ */
+:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   SCROLLBAR STYLING - Light Theme
+   Force always visible on macOS
+   ============================================ */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-color) var(--bg-muted);
+}
+
+*::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--bg-muted);
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--border-color);
+  border-radius: 5px;
+  border: 2px solid var(--bg-muted);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--text-muted);
+}

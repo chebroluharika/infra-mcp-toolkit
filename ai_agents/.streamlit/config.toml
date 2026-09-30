@@ -1,0 +1,63 @@
+# Streamlit Configuration
+# =======================
+# Optimized for fast loading, especially in Docker containers
+
+[server]
+# Disable CORS checking for iframe embedding (false = no restrictions)
+enableCORS = false
+enableXsrfProtection = false
+
+# Allow embedding in iframes (required for dashboard integration)
+enableStaticServing = true
+
+# Enable WebSocket compression for faster data transfer
+enableWebsocketCompression = true
+
+# Run on port 8501 by default
+port = 8501
+
+# Headless mode for Docker/iframe
+headless = true
+
+# Bind to localhost for local development
+# Change to "0.0.0.0" for Docker/container deployments
+address = "localhost"
+
+# Performance: Disable file watcher in production/Docker (reduces CPU)
+fileWatcherType = "none"
+
+# Performance: Max upload size (reduce if not needed)
+maxUploadSize = 10
+
+# Performance: Max message size for WebSocket
+maxMessageSize = 200
+
+[browser]
+# Don't open browser automatically
+gatherUsageStats = false
+# Allow access from any address (not just localhost)
+# serverAddress = "localhost"
+serverPort = 8501
+
+[client]
+# Hide toolbar for cleaner embed
+toolbarMode = "minimal"
+showSidebarNavigation = false
+
+# Performance: Show error details only in debug
+showErrorDetails = false
+
+[runner]
+# Performance: Fast reruns - don't re-execute on every widget change
+fastReruns = true
+
+# Performance: Magic commands disabled for faster parsing
+magicEnabled = false
+
+[theme]
+# Light theme to match dashboard
+primaryColor = "#d4552a"
+backgroundColor = "#f8f7f4"
+secondaryBackgroundColor = "#ffffff"
+textColor = "#2d2d2d"
+font = "sans serif"

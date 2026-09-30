@@ -1,0 +1,211 @@
+{
+  "file_to_feature": {
+    "_comment": "Maps file path patterns to feature/service names",
+    
+    "platform": {
+      "macos/": "NSC-MacOS",
+      "darwin/": "NSC-MacOS",
+      "osx/": "NSC-MacOS",
+      "nsmac": "NSC-MacOS",
+      "windows/": "NSC-Windows",
+      "win32/": "NSC-Windows",
+      "win64/": "NSC-Windows",
+      "nswin": "NSC-Windows",
+      "linux/": "NSC-Linux",
+      "nslinux": "NSC-Linux",
+      "android/": "NSC-Android",
+      "nsandroid": "NSC-Android",
+      "ios/": "NSC-iOS",
+      "nsios": "NSC-iOS"
+    },
+    
+    "services": {
+      "enrollment/": "PROD-SVC-Enrollment",
+      "nsenrollment": "PROD-SVC-Enrollment",
+      "provisioning/": "PROD-SVC-Provisioning",
+      "provisioner/": "PROD-SVC-Provisioning",
+      "nsprovisioner": "PROD-SVC-Provisioning",
+      "addonman/": "PROD-SVC-Addonman",
+      "nsaddonman": "PROD-SVC-Addonman",
+      "addon_manager": "PROD-SVC-Addonman",
+      "clientstatus/": "PROD-SVC-ClientStatus",
+      "your-product-status": "PROD-SVC-ClientStatus",
+      "client_status": "PROD-SVC-ClientStatus",
+      "clientsupport/": "PROD-SVC-ClientSupport",
+      "your-product-support": "PROD-SVC-ClientSupport",
+      "client_support": "PROD-SVC-ClientSupport",
+      "steering/": "PROD-SVC-Steering",
+      "nssteering": "PROD-SVC-Steering",
+      "trafficsteering": "PROD-SVC-Steering",
+      "pycore/": "PROD-SVC-Pycore",
+      "nspycore": "PROD-SVC-Pycore",
+      "downloader/": "PROD-SVC-Downloader",
+      "nsdownloader": "PROD-SVC-Downloader",
+      "branding/": "PROD-SVC-Branding",
+      "nsbranding": "PROD-SVC-Branding",
+      "custom_branding": "PROD-SVC-Branding"
+    },
+    
+    "device_classification": {
+      "device-classification/": "Device-Classification",
+      "deviceclassification": "Device-Classification",
+      "nsdeviceclassification": "Device-Classification",
+      "device_posture": "Device-Classification",
+      "posture/": "Device-Classification"
+    },
+    
+    "network": {
+      "npa/": "NPA-Client",
+      "nsnpa": "NPA-Client",
+      "private_access": "NPA-Client",
+      "tunnel/": "Tunnel",
+      "nstunnel": "Tunnel",
+      "vpn/": "VPN",
+      "nsvpn": "VPN",
+      "ipsec": "VPN",
+      "proxy/": "Proxy",
+      "nsproxy": "Proxy",
+      "ssl/": "SSL/TLS",
+      "tls/": "SSL/TLS",
+      "nsssl": "SSL/TLS",
+      "certificate": "SSL/TLS"
+    },
+    
+    "authentication": {
+      "auth/": "Authentication",
+      "nsauth": "Authentication",
+      "saml/": "SAML/SSO",
+      "oauth/": "OAuth",
+      "sso/": "SAML/SSO",
+      "idp/": "SAML/SSO",
+      "ldap/": "LDAP"
+    },
+    
+    "security": {
+      "dem/": "DEM",
+      "nsdem": "DEM",
+      "digital_experience": "DEM",
+      "tamperproof/": "Tamperproof",
+      "nstamperproof": "Tamperproof",
+      "security/": "Security",
+      "nssecurity": "Security",
+      "malware/": "Malware-Protection",
+      "dlp/": "DLP",
+      "nsdlp": "DLP",
+      "casb/": "CASB",
+      "threat/": "Threat-Protection"
+    },
+    
+    "logging": {
+      "nslog/": "NSC-Logging",
+      "logging/": "NSC-Logging",
+      "diagnostics/": "Diagnostics",
+      "nsdiag": "Diagnostics",
+      "troubleshoot": "Diagnostics",
+      "crashreport": "Crash-Reporting"
+    },
+    
+    "ui": {
+      "ui/": "UI",
+      "frontend/": "UI",
+      "nsui": "UI",
+      "tray/": "UI-Tray",
+      "systray": "UI-Tray",
+      "menubar": "UI-Tray",
+      "notification/": "Notifications",
+      "nsnotification": "Notifications",
+      "alert/": "Notifications"
+    },
+    
+    "installer": {
+      "installer/": "Installer",
+      "nsinstaller": "Installer",
+      "upgrade/": "Upgrade",
+      "nsupgrade": "Upgrade",
+      "updater/": "Upgrade",
+      "autoupdate": "Upgrade",
+      "msi/": "Installer-Windows",
+      "pkg/": "Installer-MacOS",
+      "dmg/": "Installer-MacOS",
+      "deb/": "Installer-Linux",
+      "rpm/": "Installer-Linux",
+      "apk/": "Installer-Android"
+    },
+    
+    "config": {
+      "config/": "Configuration",
+      "settings/": "Configuration",
+      "nsconfig": "Configuration",
+      "policy/": "Policy",
+      "nspolicy": "Policy"
+    },
+    
+    "ipc": {
+      "ipc/": "IPC",
+      "nsipc": "IPC",
+      "grpc/": "gRPC",
+      "websocket": "WebSocket"
+    },
+    
+    "storage": {
+      "database/": "Database",
+      "sqlite": "Database",
+      "storage/": "Storage",
+      "cache/": "Cache"
+    },
+    
+    "network_core": {
+      "socket/": "Network-Core",
+      "nssocket": "Network-Core",
+      "dns/": "DNS",
+      "nsdns": "DNS",
+      "firewall/": "Firewall",
+      "nsfirewall": "Firewall",
+      "routing/": "Routing"
+    }
+  },
+  
+  "customer_label_to_features": {
+    "_comment": "Maps customer label keywords to implied features/services",
+    
+    "steering": ["PROD-SVC-Steering"],
+    "clientservices": ["PROD-SVC-Provisioning", "PROD-SVC-Pycore", "PROD-SVC-ClientServices"],
+    "client_services": ["PROD-SVC-Provisioning", "PROD-SVC-Pycore", "PROD-SVC-ClientServices"],
+    "enrollment": ["PROD-SVC-Enrollment"],
+    "provisioning": ["PROD-SVC-Provisioning"],
+    "provisioner": ["PROD-SVC-Provisioning"],
+    "pycore": ["PROD-SVC-Pycore"],
+    "addonman": ["PROD-SVC-Addonman"],
+    "clientstatus": ["PROD-SVC-ClientStatus"],
+    "client_status": ["PROD-SVC-ClientStatus"],
+    "downloader": ["PROD-SVC-Downloader"],
+    "branding": ["PROD-SVC-Branding"],
+    "upgrade": ["Upgrade"],
+    "installer": ["Installer"],
+    "npa": ["NPA-Client"],
+    "tunnel": ["Tunnel"],
+    "vpn": ["VPN"],
+    "proxy": ["Proxy"],
+    "ssl": ["SSL/TLS"],
+    "tls": ["SSL/TLS"],
+    "dem": ["DEM"],
+    "tamperproof": ["Tamperproof"],
+    "deviceclassification": ["Device-Classification"],
+    "device_classification": ["Device-Classification"],
+    "posture": ["Device-Classification"],
+    "ui": ["UI"],
+    "auth": ["Authentication"],
+    "sso": ["SAML/SSO"],
+    "saml": ["SAML/SSO"],
+    "dns": ["DNS"],
+    "firewall": ["Firewall"],
+    "dlp": ["DLP"],
+    "casb": ["CASB"],
+    "macos": ["NSC-MacOS"],
+    "windows": ["NSC-Windows"],
+    "linux": ["NSC-Linux"],
+    "android": ["NSC-Android"],
+    "ios": ["NSC-iOS"],
+    "scopeother": ["Configuration"]
+  }
+}

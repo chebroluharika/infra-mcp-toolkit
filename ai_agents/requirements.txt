@@ -1,0 +1,58 @@
+# AI Agents Dependencies
+# ======================
+# Install with: pip install -r ai_agents/requirements.txt
+
+# Google Agent Development Kit (with MCP support)
+google-adk[mcp]>=0.5.0
+
+# MCP (Model Context Protocol) for tool servers
+mcp>=1.0.0
+
+# LiteLLM - Unified LLM interface (Ollama, OpenAI, Gemini, Anthropic)
+litellm>=1.84.0  # CVE-2026-47101/47102 (priv esc, CVSS 8.8) + Jinja2 SSTI RCE chain — min safe version 1.84.0
+
+# Streamlit for chat interface
+streamlit>=1.30.0
+
+# =============================================================================
+# Documentation Agent (RAG with FAISS)
+# =============================================================================
+
+# Vector store
+faiss-cpu>=1.7.4
+
+# Web scraping for documentation
+beautifulsoup4>=4.12.0
+lxml>=5.0.0
+
+# Embeddings (optional - can use Ollama instead)
+# sentence-transformers>=2.2.0  # Uncomment for local embeddings without Ollama
+
+# =============================================================================
+# Core Dependencies
+# =============================================================================
+
+# Async HTTP for API calls
+aiohttp>=3.9.0
+httpx>=0.27.0
+
+# Environment variables
+python-dotenv>=1.0.0
+
+# Data processing
+numpy>=1.24.0
+
+# =============================================================================
+# Session Persistence (MongoDB)
+# =============================================================================
+
+# MongoDB async driver
+motor>=3.3.0
+pymongo>=4.6.0
+
+# Async event loop compatibility
+nest-asyncio>=1.5.0
+
+# Already in backend/requirements.txt but listed for completeness:
+pydantic>=2.0.0
+pydantic-settings>=2.0.0

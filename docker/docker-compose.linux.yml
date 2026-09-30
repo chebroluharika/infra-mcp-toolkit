@@ -1,0 +1,21 @@
+# Linux-only override: use host networking for slightly lower latency.
+# Merged on top of docker-compose.yml automatically by the Makefile on Linux.
+# Manual usage:
+#   docker-compose -f docker/docker-compose.yml -f docker/docker-compose.linux.yml up -d
+#
+# When network_mode: host is active, docker-compose ignores the `ports:` block
+# from the base file (a benign warning is printed) — all services listen
+# directly on the host's 8000/8080/8501.
+
+services:
+  backend:
+    network_mode: host
+
+  frontend:
+    network_mode: host
+
+  streamlit:
+    network_mode: host
+    environment:
+      # In host mode all services share localhost
+      - BACKEND_URL=http://localhost:8000

@@ -1,0 +1,472 @@
+/* ==========================================================================
+   Shared PR / Commit Analysis Styles
+   Used by: ReleaseReadinessSection, CustomerEscalationsSection
+   ========================================================================== */
+
+/* Loading State */
+.analysis-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  gap: 12px;
+  color: var(--text-secondary);
+}
+
+.analysis-loading .spinner {
+  animation: spin 1s linear infinite;
+  color: var(--info);
+}
+
+/* Error State */
+.analysis-error {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px;
+  background: rgba(220, 53, 69, 0.1);
+  border: 1px solid rgba(220, 53, 69, 0.2);
+  border-radius: var(--radius-md);
+  color: var(--danger);
+  font-size: 13px;
+}
+
+/* Analysis Results */
+.analysis-results {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.analysis-section {
+  background: var(--bg-subtle);
+  border-radius: var(--radius-md);
+  padding: 16px;
+}
+
+.analysis-section h4 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 12px 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+/* Files Stats */
+.files-stats {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.files-stats .stat {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.files-stats .stat strong {
+  color: var(--text-dark);
+}
+
+.files-stats .additions {
+  color: var(--success);
+  font-weight: 500;
+}
+
+.files-stats .deletions {
+  color: var(--danger);
+  font-weight: 500;
+}
+
+/* Files by Component */
+.files-by-component {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.component-group {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.analysis-section .component-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--bg-subtle);
+  border-bottom: 1px solid var(--border-light);
+  font-size: 12px;
+}
+
+.component-name {
+  font-weight: 600;
+  color: var(--info);
+}
+
+.component-count {
+  margin-left: auto;
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.component-files {
+  padding: 8px 12px;
+}
+
+.file-item {
+  display: grid;
+  grid-template-columns: 20px 1fr 60px;
+  gap: 8px;
+  padding: 4px 0;
+  font-size: 11px;
+  align-items: center;
+}
+
+.file-item .file-status {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  text-align: center;
+}
+
+.file-item.added .file-status {
+  color: var(--success);
+}
+
+.file-item.removed .file-status {
+  color: var(--danger);
+}
+
+.file-item.modified .file-status {
+  color: var(--warning);
+}
+
+.file-item .file-name {
+  color: var(--text-dark);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-item .file-changes {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  text-align: right;
+}
+
+.more-files {
+  padding: 6px 0;
+  font-size: 11px;
+  color: var(--info);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  user-select: none;
+}
+
+.more-files:hover {
+  text-decoration: underline;
+}
+
+/* Test Impact Areas */
+.test-impact-areas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.test-area-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  background: var(--info-light);
+  color: var(--info);
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.test-area-badge .area-count {
+  opacity: 0.7;
+  font-size: 10px;
+}
+
+.no-impact {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-style: italic;
+}
+
+/* LLM Analysis Section */
+.llm-section {
+  background: linear-gradient(135deg, rgba(156, 39, 176, 0.05), rgba(103, 58, 183, 0.05));
+  border: 1px solid rgba(156, 39, 176, 0.2);
+}
+
+.llm-section h4 {
+  color: #9c27b0;
+}
+
+.llm-summary {
+  margin-bottom: 12px;
+}
+
+.llm-summary p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-dark);
+}
+
+.risk-indicator {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 12px;
+  font-size: 12px;
+}
+
+.risk-indicator.low {
+  background: rgba(76, 175, 80, 0.1);
+  border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.risk-indicator.low .risk-value {
+  color: var(--success);
+}
+
+.risk-indicator.medium {
+  background: rgba(255, 193, 7, 0.1);
+  border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+.risk-indicator.medium .risk-value {
+  color: var(--warning);
+}
+
+.risk-indicator.high {
+  background: rgba(220, 53, 69, 0.1);
+  border: 1px solid rgba(220, 53, 69, 0.3);
+}
+
+.risk-indicator.high .risk-value {
+  color: var(--danger);
+}
+
+.risk-label {
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.risk-value {
+  font-weight: 700;
+}
+
+.risk-reason {
+  flex: 1;
+  color: var(--text-secondary);
+  font-size: 11px;
+}
+
+.testing-recommendations,
+.key-changes {
+  margin-top: 12px;
+}
+
+.testing-recommendations strong,
+.key-changes strong {
+  display: block;
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.testing-recommendations ul,
+.key-changes ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.testing-recommendations li,
+.key-changes li {
+  font-size: 12px;
+  color: var(--text-dark);
+  padding: 3px 0;
+}
+
+/* LLM Unavailable */
+.llm-unavailable {
+  background: var(--bg-subtle);
+}
+
+.unavailable-msg {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* QA Test Recommendations Section (from PR description) */
+.qa-recs-section {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(59, 130, 246, 0.05));
+  border: 1px solid rgba(37, 99, 235, 0.2);
+}
+
+.qa-recs-section h4 {
+  color: #2563eb;
+}
+
+.qa-rec-badge {
+  background: rgba(37, 99, 235, 0.1) !important;
+  color: #1d4ed8 !important;
+  border: 1px solid rgba(37, 99, 235, 0.2);
+}
+
+/* ==========================================================================
+   Analysis Modal (shared by Release Readiness & Customer Escalations)
+   ========================================================================== */
+
+.commit-analysis-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  backdrop-filter: blur(4px);
+}
+
+.commit-analysis-modal {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 700px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: modalSlideIn 0.2s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.commit-analysis-modal .modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-light);
+  background: var(--bg-subtle);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.commit-analysis-modal .modal-header h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.commit-analysis-modal .modal-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: var(--radius-sm);
+  transition: all 0.15s;
+}
+
+.commit-analysis-modal .modal-close:hover {
+  background: var(--bg-hover);
+  color: var(--text-dark);
+}
+
+.commit-analysis-modal .modal-subheader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background: var(--bg-subtle);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.commit-sha-badge {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--danger);
+  background: rgba(220, 53, 69, 0.1);
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+
+.commit-repo {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.commit-analysis-modal .modal-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+/* Escalation-specific styles moved to escalations.css */
+
+/* Responsive */
+@media (max-width: 768px) {
+  .files-stats {
+    flex-wrap: wrap;
+  }
+
+  .risk-indicator {
+    flex-wrap: wrap;
+  }
+
+  .risk-reason {
+    width: 100%;
+    margin-top: 6px;
+  }
+
+  .commit-analysis-modal {
+    max-width: 100%;
+    max-height: 95vh;
+  }
+
+  .commit-analysis-modal .modal-subheader {
+    flex-wrap: wrap;
+  }
+}

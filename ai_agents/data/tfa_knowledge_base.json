@@ -1,0 +1,51 @@
+{
+  "failures": [
+    {
+      "id": "example_001",
+      "job_name": "your-product-backend-regression-test",
+      "build_number": 42,
+      "category": "connection",
+      "error_pattern": "ConnectionRefusedError: [Errno 111] Connection refused",
+      "root_cause": "Service not ready when test started",
+      "fix": "Add readiness probe / health check wait before test execution",
+      "tags": [
+        "connection",
+        "timing",
+        "infrastructure"
+      ]
+    },
+    {
+      "id": "example_002",
+      "job_name": "your-product-api-test",
+      "build_number": 17,
+      "category": "timeout",
+      "error_pattern": "asyncio.TimeoutError after 30s waiting for response",
+      "root_cause": "Downstream service slow under load",
+      "fix": "Increase timeout or mock the downstream dependency in tests",
+      "tags": [
+        "timeout",
+        "performance",
+        "dependency"
+      ]
+    },
+    {
+      "id": "example_003",
+      "job_name": "your-product-integration-test",
+      "build_number": 8,
+      "category": "assertion",
+      "error_pattern": "AssertionError: Expected 200 OK, got 503 Service Unavailable",
+      "root_cause": "Test environment stack was partially degraded",
+      "fix": "Add pre-test stack health check; alert on-call if stack is unhealthy",
+      "tags": [
+        "assertion",
+        "environment",
+        "stack-health"
+      ]
+    }
+  ],
+  "metadata": {
+    "version": "1.0",
+    "description": "Seed data for TFA knowledge base. Add your own failure examples here.",
+    "note": "Replace these examples with real failure patterns from your CI environment."
+  }
+}

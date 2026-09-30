@@ -1,0 +1,53 @@
+# Knowledge Sources Configuration
+# =================================
+# Shared config for TFA and Docs Agent.
+# Add documentation sources here - both agents will search these.
+#
+# Supported source types:
+#   - confluence: Atlassian Confluence wiki (requires API token)
+#   - web: Public web pages (scraped and indexed with FAISS)
+#
+# To add a new source, just add an entry below and restart the backend.
+
+sources:
+  # Internal Confluence Wiki (SRE Documentation)
+  - name: "SRE Wiki"
+    type: confluence
+    enabled: true
+    config:
+      base_url: "${CONFLUENCE_BASE_URL}"
+      space_key: "${CONFLUENCE_SPACE_KEY}"
+      parent_page_id: "${CONFLUENCE_PARENT_PAGE_ID}"
+    priority: 1
+    # Which agents can use this source (empty = all agents)
+    agents: []
+
+  # Public YourCompany Documentation  
+  - name: "YourCompany Docs"
+    type: web
+    enabled: true
+    config:
+      base_url: "https://docs.your-company.com/en/your-company-client"
+      # Scrape and index with FAISS for semantic search
+      index_path: "${DOCS_INDEX_PATH:-data/docs_index}"
+    priority: 2
+    agents: []
+
+  # Example: Add another Confluence space
+  # - name: "Engineering Wiki"
+  #   type: confluence
+  #   enabled: true
+  #   config:
+  #     base_url: "${CONFLUENCE_BASE_URL}"
+  #     space_key: "ENG"
+  #   priority: 3
+  #   agents: ["docs_agent"]  # Only docs_agent uses this
+
+  # Example: Add external docs
+  # - name: "AWS Docs"
+  #   type: web
+  #   enabled: true
+  #   config:
+  #     base_url: "https://docs.aws.amazon.com"
+  #   priority: 10
+  #   agents: ["tfa"]  # Only TFA uses this
